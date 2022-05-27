@@ -3,13 +3,15 @@
 \section{Human Subject Experiments}
 
 We conduct human subject experiments on a natural image dataset: Butterflies v.s. Moths (BM). Following \cite{singla2014near}, we acquired 200 images from the publicly available dataset set (ImageNet \cite{krizhevsky2012imagenet}). We present synthetic experiment results in the appendix.
-\harry{we can also remove these 2 sentences?} BM is a binary classification problem and each class contains four species (see appendix for examples). We randomly split the dataset following 60\%:20\%:20\% ratio (120/40/40 images).
+% \harry{we can also remove these 2 sentences?} 
+BM is a binary classification problem and each class contains four species (see appendix for examples). We randomly split the dataset following 60\%:20\%:20\% ratio (120/40/40 images).
 
 
 \subsection{Triplet annotation}
 
 We recruit 80 crowdworkers on Prolific to acquire visual similarity triplets. In each question for the annotator, we show the reference image on top and two candidate below, and ask 2-Alternative-Forced-Choice (2AFC) question: which candidate image looks more similar to the reference image. 
-\harry{can prob remove the next sentence?} An screenshot of the interface can be found in the appendix.
+% \harry{can prob remove the next sentence?} 
+An screenshot of the interface can be found in the appendix.
 To generate triplets for annotation, we first sample the reference image: 2400 examples from the training set, 800 from the validation set, and 800 from the test set. Then we sample the two candidates from the training set for all three folds, since in decision support, the selected examples always come from the training set.
 
 
@@ -86,7 +88,7 @@ We also select a \tn model as a synthetic agent to run decision support simulati
     % \hfill
     \begin{minipage}[b]{0.48\textwidth}
         \centering
-        \includegraphics[width=0.55\textwidth]{figures/bm/prolific/decision.pdf}
+        \includegraphics[width=0.65\textwidth]{figures/bm/prolific/decision.pdf}
         \captionof{figure}{BM dataset decision support accuracy with human subject studies. Error bars mean 95\% confidence intervals.}
         \label{fig:bm_human_decision}
     \end{minipage}
