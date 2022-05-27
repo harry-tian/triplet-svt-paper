@@ -15,7 +15,7 @@ Given a test example ($x$) and its predicted label ($\hat{y}$), two common use c
   \item Presenting the nearest neighbor in each class without presenting $\hat{y}$. This approach makes a best-effort attempt to provide evidence for each class and leaves the final decision to human, without biasing human with the predicted label. We refer to this scenario as {\em decision support}.
 \end{itemize}
 
-\paragraph{Formulation.}
+\para{Formulation.}
 In this work, we formalize the problem of case-based decision support. 
 The goal is to assist humans on a classification problem with groundtruth $\f: \inputspace \rightarrow \outputspace$.
 We assume access to a representation model $g$, which takes an input $x$ and generates an $m$-dimensional representation $g(x) \in R^m$.
@@ -37,11 +37,11 @@ In justification, the example policy is $NN(x, e(h), D^\text{train}_{\hat{y}})$,
 In decision support, the example policy is $\{NN(x, e(h), D^\text{train}_{y}), ~\forall y \in \outputspace \}$.
 
 
-\paragraph{Misalignment with human similarity metric is detrimental.}
+\para{Misalignment with human similarity is detrimental.}
 To reason about the effectiveness of a representation model, we need to think about the goal of case-based decision support.
 Let us start with justification, which is a relatively easy case. 
 To justify a predicted label, the chosen example should ideally {\em appear similar} to the test image.
-Crucially, this similarity is perceived by humans and the example policy selects the nearest neighbor based on model representation.
+Crucially, this similarity is perceived by humans but the example policy selects the nearest neighbor based on model representation.
 The gap between human representation and model representation (\figref{fig:model_vs_human}) leads to undesirable justification.
 
 Decision support, however, represents a more complicated scenario.
@@ -61,17 +61,19 @@ Models trained with supervised learning almost always exploit patterns in the tr
 % In both cases, the misalignment between the model and the human's similarity metric can lead to ineffective case-based decision support; 
 % \shi{add another illustrative figure here?}
 
-\paragraph{Combining metric learning on human triplets with supervised classification.}
+\para{Combining metric learning on human triplets with supervised classification.}
 We propose to address the metric alignment problem with additional supervision on the human similarity metric.
 We collect data in the form of human similarity judgment triplets (or \textit{triplets} for short).
 Each triplet is an ordered tuple: $(x^r, x^+, x^-)$, which indicates $x^+$ is judged by human as being closer to the reference $x^r$ than $x^-$~\citep{balntas2016learning}.
 
 Given a triplet dataset $T$ and labeled classification dataset $D$, we use triplet margin loss~\citep{balntas2016learning} in conjunction with the cross-entropy loss, controlled by a hyperparameter $\lambda$:
+{\tiny
 \begin{align*}
   &L = \lambda L_\mathrm{CrossEntropy(CE)} + (1-\lambda) L_\mathrm{TripletMargin(TM)} \label{eq:mtl_loss} \\
   &L_\mathrm{CE} = - \sum_{(x,y)\sim D} \log\left(p_\theta(y|x)\right) \\
   &L_\mathrm{TM} = \sum_{(x^r,x^+,x^-)\sim T} \max\left(d_\theta(x^r,x^+)-d(x^r,x^-)+\mu,0\right)
 \end{align*}
+}%
 % \begin{equation}
 % \underbrace{\left[- \sum_{(x,y)\sim D} \log\left(p_\theta(y|x)\right)\right]}_\textrm{Cross-entropy loss} + (1-\lambda)\underbrace{\left[\sum_{(x^r,x^+,x^-)\sim T} \max\left(d_\theta(x^r,x^+)-d(x^r,x^-)+\mu,0\right)\right]}_\textrm{Triplet margin loss}
 % \label{eq:mtl_loss}

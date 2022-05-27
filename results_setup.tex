@@ -2,10 +2,11 @@
 
 \section{Experimental Setup}
 
-\harry{we can remove this sentence? }In this section, we review the specific model instantiation in our experiments and provide the detailed experimental setup for justification and decision support.
+% \harry{we can remove this sentence? }In this section, we review the specific model instantiation in our experiments and provide the detailed experimental setup for justification and decision support.
 
 
-\para{Models.} \harry{I deleted a few sentences here}
+\para{Models.} 
+% \harry{I deleted a few sentences here}
 % Here we provide architecture details about our model and baselines.
 All models and baselines use \resn-18~\citep{he2016deep} as the backbone image encoder. We use the output of the final layer as our embedding.
 % All models and baselines use \resn-18~\citep{he2016deep} pretrained on ImageNet as the backbone image encoder. 
@@ -60,10 +61,10 @@ Although filtering triplets may lose important human similarity information, it 
 Our method is designed to align representations with human similarity metrics and at the same time retain the representations' predictive power for classification.
 We can evaluate these representations with classification and triplet accuracy using existing data, but 
 % to evaluate in our end task which is case-based decision support, we still need an example selection policy.
-our main evaluation is designed to simulate case-based decision support scenarios.
+our main evaluation is designed to simulate case-based decision support scenarios (see justification in the appendix).
 
-\han{justification here is removed}
-\begin{itemize}[itemsep=0pt, topsep=0pt, leftmargin=*]
+% \han{justification here is removed}
+\begin{itemize}[itemsep=0pt, topsep=-2pt, leftmargin=*]
   
   % \item Justification (``\textbf{H2H}''). 
   % One possible strategy to examine the quality of representations is to ask people to subjectively rate similarity between the test image and the justification. However, self-reported ratings are known to be problematic. \chenhao{add cite} 

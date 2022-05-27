@@ -3,24 +3,26 @@
 \section{Conclusion}
 \label{sec:conclusion}
 
-Human decision making can be assisted by showing examples that are similar to the current problem that they are working on.
-As we identify in this paper, the key to providing effective case-based support with a model is the alignment between the model and the human in terms of similarity metrics: two examples that appear similar to the model should also appear similar to the human.
+% Human decision making can be assisted by showing examples that are similar to the current problem that they are working on.
+% As we identify in this paper, 
+The key to providing effective case-based support with a model is the alignment between the model and the human in terms of similarity metrics: two examples that appear similar to the model should also appear similar to the human.
 But models trained to do classification do not automatically produce representations that satisfy this property.
-To address this issue, we propose a multi-task learning method (\mtl) to combine two sources of supervision: labeled examples for classification, and triplets of human similarity judgments.
-With synthetic experiments and user studies, we validate that \mtl
-\begin{enumerate*}[label=(\roman*)]
-  \item consistently get the best of both worlds in terms of classification accuracy and triplet accuracy,
-  % achieves a classification accuracy comparable to training only on the classification examples, a triplet accuracy comparable to only training to approximate human similarity metrics, and does it consistently for easy and hard (in terms of alignment score) setting, meaning that it can reliably get the best of both worlds.
-  \item selects visually more similar examples in head-to-head comparisons,
-  \item and provides better decision support% with various example selection policies.
-\end{enumerate*}.
+To address this issue, we propose a multi-task learning method (\mtl) to combine two sources of supervision: labeled examples for classification, and triplets of human similarity judgments, and validate its effectiveness.
+% We validate the effectiveness of \mtl through empirical experiments.
+% With synthetic experiments and user studies, we validate that \mtl
+% \begin{enumerate*}[label=(\roman*)]
+%   \item consistently get the best of both worlds in terms of classification accuracy and triplet accuracy,
+%   % achieves a classification accuracy comparable to training only on the classification examples, a triplet accuracy comparable to only training to approximate human similarity metrics, and does it consistently for easy and hard (in terms of alignment score) setting, meaning that it can reliably get the best of both worlds.
+%   \item selects visually more similar examples in head-to-head comparisons,
+%   \item and provides better decision support% with various example selection policies.
+% \end{enumerate*}.
 
-\para{Limitations.} A list of limitations that we hope to address in future work:
-\begin{enumerate*}[label=(\roman*)]
-\item We only have one model architecture and one task in human study.
-\item Our experiments are focused on simple classification tasks for the model and are not representative of high-stake domains.
-% \item Our results show that triplet judgments are an effective way to incorporate human intuitions, however, it remains an open question whether this approach is efficient
-% \item The example selection policies are heuristic-based.
-% \item We do not have a good way to control for the amount training data for baselines.
-% \item We do not have a good explanation for why filtering improves decision support.
-\end{enumerate*}
+% \para{Limitations.} A list of limitations that we hope to address in future work:
+% \begin{enumerate*}[label=(\roman*)]
+% \item We only have one model architecture and one task in human study.
+% \item Our experiments are focused on simple classification tasks for the model and are not representative of high-stake domains.
+% % \item Our results show that triplet judgments are an effective way to incorporate human intuitions, however, it remains an open question whether this approach is efficient
+% % \item The example selection policies are heuristic-based.
+% % \item We do not have a good way to control for the amount training data for baselines.
+% % \item We do not have a good explanation for why filtering improves decision support.
+% \end{enumerate*}

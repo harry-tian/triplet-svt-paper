@@ -13,7 +13,7 @@ To generate triplets for annotation, we first sample the reference image: 2400 e
 
 % \subsection{Model Evaluation with Synthetic Agent}
 \subsection{Model training}
-\han{subsection title here is rephrased.}
+% \han{subsection title here is rephrased.}
 
 We trained models with different configurations. We mainly discuss two factors: 1) filtering out class-inconsistent triplets or not; 2) a large dimension at 512 vs. a small dimension at 50 for the output representations. We also tried different hyperparameters such as different $\lambda$s that control the strength of the classification loss and triplet loss as well as different random seeds. 
 We select the best \tn / \mtl / \resn model in each filtering-dimension configuration with the highest average of test classification accuracy and test triplet accuracies. 
@@ -32,11 +32,11 @@ filtering out class-inconsistent triplets decrease triplet accuracy (76.2\% vs. 
 This is because filtering creates a distribution shift of the triplet annotations, and limits the models' ability to learn general human visual similarity. 
 
 We also select a \tn model as a synthetic agent to run decision support simulations. See Appendix.
-\han{TN synthetic agent here is removed}
+% \han{TN synthetic agent here is removed}
 % To run synthetic experiments for case-based decision support, we select the \tn with the best test triplet accuracy as our synthetic agent, and then evaluate the examples produced by all representations.
 % We do not compare with \tn as \tn is the synthetic agent.
 
-\han{h2h results here is removed}
+% \han{h2h results here is removed}
 % \para{\mtl is prefered over \resn in H2H.}
 
 % We compare examples selected from different models in different configurations to examples selected by the \resn baseline with the same dimensionality. 
@@ -46,7 +46,7 @@ We also select a \tn model as a synthetic agent to run decision support simulati
 % In all settings, the preference towards \mtl is above 50\%, but not as high as those in our synthetic experiments with the VW dataset.
 % Filtering out class-inconsistent triplets improves the preference for the nearest example with the predicted label, while hurting the preference for the nearest out-of-class example.
 
-\han{decision results with syn agent is removed}
+% \han{decision results with syn agent is removed}
 % \para{Decision support simulations shows a large dimension benefits \resn but hurts unfiltered \mtl in NINO.}
 % We also run simulated decision support with the \tn synthetic agent. Table \ref{tb:bm_decision} shows decision support accuracy for different settings. 
 % \resn have both higher NINO decision support accu and NIFO scores when we use a large dimension at 512. We hypothesize that for \resn, reducing dimension may force the network to discard dimensions useful for human judgments but keep dimensions useful for classification. We then use the 512-dimension \resn representations with the highest intrinsic evaluation scores as our \resn baseline in later studies.
@@ -66,7 +66,7 @@ We also select a \tn model as a synthetic agent to run decision support simulati
 
 
 \begin{table}[t]
-    \han{h2h tatble here is removed}
+    % \han{h2h tatble here is removed}
     \centering
     % \begin{minipage}[b]{0.3\textwidth}
     %     \input{tables/bm-h2h.tex}
@@ -83,7 +83,7 @@ We also select a \tn model as a synthetic agent to run decision support simulati
     \hfill
     \begin{minipage}[b]{0.48\textwidth}
         \centering
-        \includegraphics[width=0.68\textwidth]{figures/bm/prolific/decision.pdf}
+        \includegraphics[width=0.5\textwidth]{figures/bm/prolific/decision.pdf}
         \captionof{figure}{BM dataset decision support accuracy with human subject studies. Error bars mean 95\% confidence intervals.}
         \label{fig:bm_human_decision}
     \end{minipage}
@@ -141,7 +141,7 @@ We also select a \tn model as a synthetic agent to run decision support simulati
 We recruit crowdworkers on Prolific to evaluate representations produced by our models by doing decision support tasks and H2H comparison tasks. We acquired examples with different policies from two sets of model representations: the filtered 50-dimension representations \mtl and the 512-dimension \resn baseline representations. 
 We do not include \tn models in human studies, because in pactice \tn models cannot make predictions on class labels, therefore are unable to distinguish and select in-class and out-of-class examples.
 
-\han{h2h results here is removed}
+% \han{h2h results here is removed}
 % \para{H2H comparision results show \mtl NI examples are slightly but significantly preferred over \resn NI examples according to human visual similarity.}
 % We also recruit 30 Prolific workers to make H2H comparisons between \mtl NI examples and \resn NI examples. The mean preference for \mtl over \resn is 0.5316 with a 95\% confidence interval of $\pm0.0302$ ($p=0.0413$ with one-sample t-test). 
 % This means the \mtl NI examples are closer to the test images than \resn NI examples with statistical significance according to human visual similarity.  
@@ -149,11 +149,13 @@ We do not include \tn models in human studies, because in pactice \tn models can
 
 \para{Decision support results show \mtl NINO and \mtl NIFO are significantly better than \resn NIFO and random decision support, which are also significantly better than \resn NINO.}
 We setup decision support tasks with reference images from the test set and supporting images from each class in the training set. Combining two example selection policies with two representations, we have four conditions: \mtl NINO, \mtl NIFO, \resn NINO, \resn NIFO. We also add a baseline condition with random supporting examples, which we call it the random in-class random out-of-class (RIRO) policy.
-We recruit 30 Prolific workers for each condition and ask them to go through all of the images in the test set with supporting examples. Both the order of the test image and the order of the supporting images within each test questions are randomly shuffled. 
+We recruit 30 Prolific workers for each condition and ask them to go through all of the images in the test set with supporting examples. Both the order of the test image and the order of the supporting images 
+% within each test questions 
+are randomly shuffled. 
 
 
 Figure \ref{fig:bm_human_decision} shows the human classification accuracies with different decision support scenarios and different representations. From the results, we see \mtl NIFO and \mtl NINO yield very high prediction accuracy at 96.5\% and 92.7\%. The next two highest conditions are \resn NIFO and RIRO with accuracy 78.4\% and 76.2\%. The lowest prediction accuracy is 60.1\% from condition \resn NINO.
-These results confirm our results with VW synthetic experiments that \mtl provides much better decision support than \resn.
+These results confirm that \mtl provides better decision support than \resn.
 
 % Figure \ref{fig:bm_human_decision} shows the human classification accuracies with different policies and different representations. From the results, we see \mtl NIFO and \mtl NINO yield very high prediction accuracy at 0.965 and 0.927. The next two highest conditions are \resn NIFO and RIRO with accuracy 0.784 and 0.762. The lowest prediction accuracy is 0.601 from condition \resn NINO.
 % These results confirm our results with synthetic experiments that \mtl provides much better decision support than \resn.
