@@ -9,16 +9,12 @@ We use different controlling strength between classification and human judgment 
 We use the Adam optimizer \cite{kingma2014adam} with learning rate $1e-4$.
 We use a training batch size of $40$ for triplet prediction, and $30$ for classification.
 
-% \chenhao{add content}
 
 \subsection{Additional results}
-% \subsection{Additional results for square decision boundary}
 
 \paragraph{Classification and triplet accuracy.} Table~\ref{tab:wv-square-clf-trip} shows how tuning $\lambda$ affects \mtl 's classification and triplet accuracy. Higher $\lambda$ drives \mtl to behave more simlar to \resn while lower \mtl is more similar to \tn.
 
 \input{tables/supp/clf_triplet_acc.tex}
-% \paragraph{Table 1 with error bar.}
-% \han{Table 1 ambiguous reference. Writing out the caption here.}
 \paragraph{Experiment results on VW with confidence intervals.}
 Table~\ref{tab:table1-ci} presents results on VW with \mtl $\lambda=0.5$. This is is simply Table 1 in the main paper with 0.95 confidence intervals.
 
@@ -98,90 +94,90 @@ We generate alignment scores by searching through weight combinations of the sim
 
 We create a linear decision boundary on VW without altering the dataset (\figref{fig:linear-dist}). We find the results are overall similar to the original VW data.
  
-\begin{table}[t]
-    \centering
-  \begin{minipage}[b]{0.31\textwidth}
-    \includegraphics[width=\textwidth]{figures/supp/linear_dist.png}
-    \captionof{figure}{VW dataset with a linear decision boundary.}
-    \label{fig:linear-dist}
-  \end{minipage}
-  \hfill
-  \begin{minipage}[b]{0.63\textwidth}
-    \input{tables/supp/wv_squarelin_clf_triplet_acc.tex}
-  \end{minipage}
-\end{table}
+% \begin{table}[t]
+%     \centering
+%   \begin{minipage}[b]{0.31\textwidth}
+%     \includegraphics[width=\textwidth]{figures/supp/linear_dist.png}
+%     \captionof{figure}{VW dataset with a linear decision boundary.}
+%     \label{fig:linear-dist}
+%   \end{minipage}
+%   \hfill
+%   \begin{minipage}[b]{0.63\textwidth}
+%     \input{tables/supp/wv_squarelin_clf_triplet_acc.tex}
+%   \end{minipage}
+% \end{table}
 
-\paragraph{Classification and triplet accuracy.} Table~\ref{tab:lin-clf} shows classification and
-triplet accuracy of tuning $\lambda$, showing a similar trend to the previous experiment.
+% \paragraph{Classification and triplet accuracy.} Table~\ref{tab:lin-clf} shows classification and
+% triplet accuracy of tuning $\lambda$, showing a similar trend to the previous experiment.
 
-\paragraph{H2H and decision support results}
+% \paragraph{H2H and decision support results}
 
-In Table~\ref{tab:wv_lin_filtered_l=0.5} we present results with the best set of hyperparameter: filtered triplets, 512-dimension embedding, $\lambda=0.5$. We show results for $\lambda=0.2$ in Table 13 and $\lambda=0.8$ in Table 14. We also show results with 50-dimension \mtl in Table 15 and unfiltered \mtl in Table 16. 
+% In Table~\ref{tab:wv_lin_filtered_l=0.5} we present results with the best set of hyperparameter: filtered triplets, 512-dimension embedding, $\lambda=0.5$. We show results for $\lambda=0.2$ in Table 13 and $\lambda=0.8$ in Table 14. We also show results with 50-dimension \mtl in Table 15 and unfiltered \mtl in Table 16. 
 
-Similar to the experiment on VW square decision boundary, we see no clear relation between $\lambda$, embedding dimension and our evaluation metrics. Table 16 again shows that filtered \mtl leads to better decision support but worse H2H.
+% Similar to the experiment on VW square decision boundary, we see no clear relation between $\lambda$, embedding dimension and our evaluation metrics. Table 16 again shows that filtered \mtl leads to better decision support but worse H2H.
 
-\input{tables/supp/wv_squarelin_filtered_l=0.5_ci.tex}
+% \input{tables/supp/wv_squarelin_filtered_l=0.5_ci.tex}
 
-\input{tables/supp/wv_squarelin_filtered_l=0.2_ci.tex}
+% \input{tables/supp/wv_squarelin_filtered_l=0.2_ci.tex}
 
-\input{tables/supp/wv_squarelin_filtered_l=0.8_ci.tex}
+% \input{tables/supp/wv_squarelin_filtered_l=0.8_ci.tex}
 
-\input{tables/supp/wv_squarelin_filtered_l=0.5_d=50.tex}
+% \input{tables/supp/wv_squarelin_filtered_l=0.5_d=50.tex}
 
-\input{tables/supp/wv_squarelin_unfiltered_l=0.5_ci.tex}
+% \input{tables/supp/wv_squarelin_unfiltered_l=0.5_ci.tex}
 
-\paragraph{The effect of perturbations} Similar to previous results, adding noise harms H2H and decision support performance with unfiltered \mtl more so than filtered (~\figref{fig:lin-noise-filtered}, ~\figref{fig:lin-noise-unfiltered}). ~\figref{fig:lin-num} shows H2H and decision support performance with decreasing number of triplets; similar to results in the main paper, H2H decreases more rapidly.
+% \paragraph{The effect of perturbations} Similar to previous results, adding noise harms H2H and decision support performance with unfiltered \mtl more so than filtered (~\figref{fig:lin-noise-filtered}, ~\figref{fig:lin-noise-unfiltered}). ~\figref{fig:lin-num} shows H2H and decision support performance with decreasing number of triplets; similar to results in the main paper, H2H decreases more rapidly.
 
-\begin{table}[t]
-  \begin{minipage}[b]{\textwidth}
-    \centering
-    \begin{subfigure}[b]{0.32\textwidth}
-      \includegraphics[width=\textwidth]{figures/supp/wv_squarelin_noise_filtered_h2h.pdf}
-      \end{subfigure}
-      \begin{subfigure}[b]{0.32\textwidth}
-        \includegraphics[width=\textwidth]{figures/supp/wv_squarelin_noise_filtered_NINO.pdf}
-      \end{subfigure}
-      \begin{subfigure}[b]{0.32\textwidth}
-        \includegraphics[width=\textwidth]{figures/supp/wv_squarelin_noise_filtered_NIFO.pdf}
-      \end{subfigure}
-      \captionof{figure}{Results on VW linear decision boundary data with varying noise levels. \mtl uses filtered triplets.}
-      \label{fig:lin-noise-filtered}
-  \end{minipage}
-\end{table}
-
-
-\begin{table}[t]
-  \begin{minipage}[b]{\textwidth}
-    \centering
-    \begin{subfigure}[b]{0.32\textwidth}
-      \includegraphics[width=\textwidth]{figures/supp/wv_squarelin_noise_unfiltered_h2h.pdf}
-      \end{subfigure}
-      \begin{subfigure}[b]{0.32\textwidth}
-        \includegraphics[width=\textwidth]{figures/supp/wv_squarelin_noise_unfiltered_NINO.pdf}
-      \end{subfigure}
-      \begin{subfigure}[b]{0.32\textwidth}
-        \includegraphics[width=\textwidth]{figures/supp/wv_squarelin_noise_unfiltered_NIFO.pdf}
-      \end{subfigure}
-      \captionof{figure}{Results on VW linear decision boundary data with varying noise levels. \mtl uses unfiltered triplets.}
-      \label{fig:lin-noise-unfiltered}
-  \end{minipage}
-\end{table}
+% \begin{table}[t]
+%   \begin{minipage}[b]{\textwidth}
+%     \centering
+%     \begin{subfigure}[b]{0.32\textwidth}
+%       \includegraphics[width=\textwidth]{figures/supp/wv_squarelin_noise_filtered_h2h.pdf}
+%       \end{subfigure}
+%       \begin{subfigure}[b]{0.32\textwidth}
+%         \includegraphics[width=\textwidth]{figures/supp/wv_squarelin_noise_filtered_NINO.pdf}
+%       \end{subfigure}
+%       \begin{subfigure}[b]{0.32\textwidth}
+%         \includegraphics[width=\textwidth]{figures/supp/wv_squarelin_noise_filtered_NIFO.pdf}
+%       \end{subfigure}
+%       \captionof{figure}{Results on VW linear decision boundary data with varying noise levels. \mtl uses filtered triplets.}
+%       \label{fig:lin-noise-filtered}
+%   \end{minipage}
+% \end{table}
 
 
+% \begin{table}[t]
+%   \begin{minipage}[b]{\textwidth}
+%     \centering
+%     \begin{subfigure}[b]{0.32\textwidth}
+%       \includegraphics[width=\textwidth]{figures/supp/wv_squarelin_noise_unfiltered_h2h.pdf}
+%       \end{subfigure}
+%       \begin{subfigure}[b]{0.32\textwidth}
+%         \includegraphics[width=\textwidth]{figures/supp/wv_squarelin_noise_unfiltered_NINO.pdf}
+%       \end{subfigure}
+%       \begin{subfigure}[b]{0.32\textwidth}
+%         \includegraphics[width=\textwidth]{figures/supp/wv_squarelin_noise_unfiltered_NIFO.pdf}
+%       \end{subfigure}
+%       \captionof{figure}{Results on VW linear decision boundary data with varying noise levels. \mtl uses unfiltered triplets.}
+%       \label{fig:lin-noise-unfiltered}
+%   \end{minipage}
+% \end{table}
 
-\begin{table}[t]
-  \begin{minipage}[b]{\textwidth}
-    \centering
-    \begin{subfigure}[b]{0.32\textwidth}
-      \includegraphics[width=\textwidth]{figures/supp/wv_squarelin_num_h2h.pdf}
-      \end{subfigure}
-      \begin{subfigure}[b]{0.32\textwidth}
-        \includegraphics[width=\textwidth]{figures/supp/wv_squarelin_num_NINO.pdf}
-      \end{subfigure}
-      \begin{subfigure}[b]{0.32\textwidth}
-        \includegraphics[width=\textwidth]{figures/supp/wv_squarelin_num_NIFO.pdf}
-      \end{subfigure}
-      \captionof{figure}{Results on VW linear decision boundary data with varying number of triplets. \mtl uses filtered triplets.}
-      \label{fig:lin-num}
-  \end{minipage}
-\end{table}
+
+
+% \begin{table}[t]
+%   \begin{minipage}[b]{\textwidth}
+%     \centering
+%     \begin{subfigure}[b]{0.32\textwidth}
+%       \includegraphics[width=\textwidth]{figures/supp/wv_squarelin_num_h2h.pdf}
+%       \end{subfigure}
+%       \begin{subfigure}[b]{0.32\textwidth}
+%         \includegraphics[width=\textwidth]{figures/supp/wv_squarelin_num_NINO.pdf}
+%       \end{subfigure}
+%       \begin{subfigure}[b]{0.32\textwidth}
+%         \includegraphics[width=\textwidth]{figures/supp/wv_squarelin_num_NIFO.pdf}
+%       \end{subfigure}
+%       \captionof{figure}{Results on VW linear decision boundary data with varying number of triplets. \mtl uses filtered triplets.}
+%       \label{fig:lin-num}
+%   \end{minipage}
+% \end{table}

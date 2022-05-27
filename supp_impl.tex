@@ -2,11 +2,11 @@
 
 % \clearpage
 \section{Implementation detail}
-\harry{move the deleted stuff in the main paper to here}
+% \harry{move the deleted stuff in the main paper to here}
 \label{sec:implementation}
 
 The architecture of our model is presented in \ref{fig:architecture}. 
-We first encode image inputs using a Convolutional Neural Network (CNN), and then project the output into an high-dimension representation space with a projection head made of multi-layer perceptron (MLP). 
+We first encode image inputs using a Convolutional Neural Network (CNN), in this case a pretrained \resn-18~\citep{he2016deep}, and then project the output into an high-dimension representation space with a projection head made of multi-layer perceptron (MLP). 
 In our experiments we use one non-linear layer to project the output of the CNN into our representation space. 
 For classifcation task we add an MLP classifier head. 
 We also use one non-linear layer with softmax activation. 
