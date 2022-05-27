@@ -10,8 +10,8 @@
 % Here we provide architecture details about our model and baselines.
 All models and baselines use \resn-18~\citep{he2016deep} as the backbone image encoder. We use the output of the final layer as our embedding.
 % All models and baselines use \resn-18~\citep{he2016deep} pretrained on ImageNet as the backbone image encoder. 
-% Following \citep{chen2020simple}, we take the output of the average pooling layer and feed it into an MLP projection head with desired embedding dimension. 
-% We use the output of the projection head as our final embeddings, where we add task-specific head and loss for training and evaluation.
+Following \citep{chen2020simple}, we take the output of the average pooling layer and feed it into an MLP projection head with desired embedding dimension. 
+We use the output of the projection head as our final embeddings, where we add task-specific head and loss for training and evaluation.
 % We use Euclidean distance as the similarity metric for both loss calculation and distance measurement during example selection in decision support. 
 % All similarity measurement and losses calculation are computed using the final embeddings.
 We use Euclidean distance as similarity metric for loss calculation and distance measurement. 

@@ -79,12 +79,12 @@ We also select a \tn model as a synthetic agent to run decision support simulati
     % \end{minipage}
     % \hfill
     % \han{syn decision tbl here is removed}
-    \begin{minipage}[b]{0.48\textwidth}
-        \input{tables/bm-decision-transposed.tex}
-        \captionof{table}{BM decision support accuracy with synthetic agent.
-        }
-        \label{tb:bm_decision}
-    \end{minipage}
+    % \begin{minipage}[b]{0.48\textwidth}
+    %     \input{tables/bm-decision-transposed.tex}
+    %     \captionof{table}{BM decision support accuracy with synthetic agent.
+    %     }
+    %     \label{tb:bm_decision}
+    % \end{minipage}
     % \hfill
     \begin{minipage}[b]{0.48\textwidth}
         \centering
@@ -143,7 +143,10 @@ We also select a \tn model as a synthetic agent to run decision support simulati
 
 \subsection{Human studies}
 
-We recruit crowdworkers on Prolific to evaluate representations produced by our models by doing decision support tasks and H2H comparison tasks. We acquired examples with different policies from two sets of model representations: the filtered 50-dimension representations \mtl and the 512-dimension \resn baseline representations. 
+We recruit crowdworkers on Prolific to evaluate representations produced by our models in decision support tasks.
+% by doing decision support tasks and H2H comparison tasks. 
+% \han{Removed H2H comparison task here.}
+We acquired examples with different policies from two sets of model representations: the filtered 50-dimension representations \mtl and the 512-dimension \resn baseline representations. 
 We do not include \tn models in human studies, because in pactice \tn models cannot make predictions on class labels, therefore are unable to distinguish and select in-class and out-of-class examples.
 
 % \han{h2h results here is removed}
