@@ -10,7 +10,7 @@ Simply showing the predicted label from the model provides limited information a
 We focus on information presented in the form of examples from the training data, also known as case-based decision support \cite{kolodneer1991improving,begum2009case,liao2000case,angehrn1998case}.
 Case-based decision support can have diverse use cases and goals.
 Given a test example ($x$) and its predicted label ($\hat{y}$), two common use cases are:
-\begin{itemize}[topsep=0pt, leftmargin=*, itemsep=0pt]
+\begin{itemize}[topsep=0pt, leftmargin=*, noitemsep]
   \item Presenting the nearest neighbor of $x$ with label $\hat{y}$ as a justification of the predicted label. We refer to this scenario as {\em justification}.
   \item Presenting the nearest neighbor in each class without presenting $\hat{y}$. This approach makes a best-effort attempt to provide evidence for each class and leaves the final decision to human, without biasing human with the predicted label. We refer to this scenario as {\em decision support}.
 \end{itemize}

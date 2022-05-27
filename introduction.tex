@@ -80,7 +80,7 @@ The nearest neighbor found by \resn  is not as visually similar as the instance 
 %We discuss this caveat in Section~\ref{sec:discussion}.
 
 We propose a novel multi-task learning framework that combines supervised learning and metric learning.
-Specifically, we use human triplet judgments (i.e., choosing which example is more similar to a reference example among two candidates) to capture human visual perception related to a classification task, and supplement standard classification objectives with a triplet loss function~\cite{balntas2016learning}.
+Specifically, we use human triplet judgments (i.e., choosing which example is more similar to a reference example among two candidates) to capture human visual perception related to a classification task, and supplement standard classification objectives with a triplet loss~\cite{balntas2016learning}.
 Our problem setup is mainly concerned with the effectiveness of the learned representation for case-based decision support.
 Thus, it differs from supervised classification where the learned representation is a byproduct of classification, and also differs from metric learning, where the learned representation is not optimized for a particular decision.
 
@@ -100,10 +100,10 @@ Furthermore, the learned representation is also tailor to classification and all
 
 To summarize, our main contributions include: 
 % \chenhao{this is quite empty for now.}
-\begin{itemize}[leftmargin=*,itemsep=0pt, topsep=0pt]
+\begin{itemize}[leftmargin=*, noitemsep, topsep=-1.5pt]
   \item We highlight the importance of alignment in learning human-compatible representations for case-based decision support.
   \item We propose a multi-task learning framework that combines supervised learning and metric learning.
-  \item Empirical results with synthetic data and human subject experiments demonstrate the effectiveness of our approach.
+  \item Empirical results with synthetic data and human subject studies demonstrate the effectiveness of our approach.
 \end{itemize}
 
 % \yuxin{I think we should (perhaps more explicitly) tease apart the novelty of our problem setup -- we are not learning representation as byproduct of classification, or treating classification as a downstream task for metric learning, but rather use representation as constraints which needs to be satisfied in a NN classification task. A direct comparison against the broad ordinal embedding/ metric learning/ triplet learning literature is necessary. One way to do it is in intro, but in this case, bump up related work seems to be to our advantage}
