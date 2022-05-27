@@ -1,0 +1,30 @@
+%!TEX root = ../supp_main.tex
+
+\begin{table}[h]
+  \small
+  \centering
+  \begin{tabular}{@{}lrrrrrr@{}}
+  \toprule
+  Alignments   & 50\%   & 80\%   & 83\%  & 92\%  & 92.5\% & 100\%     \\ \midrule
+  Weights  &  [0,0,1,1]  & [1,0,1,1] &  [0,1,1,1] &  [1,256,256,256] &  [256,1,256,256] &  [1,1,1,1]  \\ \midrule
+
+  \multicolumn{7}{c}{\textbf{NI-H2H}} \\ \midrule
+  \mtl vs. \resn     & 0.916 $\pm$ 0.082 & 0.869 $\pm$ 0.217 & 0.891 $\pm$ 0.029 & 0.879 $\pm$ 0.066 & 0.853 $\pm$ 0.164 & 0.828 $\pm$ 0.138\\ \midrule
+
+  \multicolumn{7}{c}{\textbf{NO-H2H}} \\ \midrule
+  \mtl vs. \resn     & 0.902 $\pm$ 0.193 & 0.944 $\pm$ 0.093 & 0.959 $\pm$ 0.005 & 0.956 $\pm$ 0.090 & 0.942 $\pm$ 0.026 & 0.969 $\pm$ 0.034\\ \midrule
+
+  \multicolumn{7}{c}{\textbf{NINO Decision Support}}       \\ \midrule
+  \resn     & \textbf{0.753} $\pm$ 0.056 & \textbf{0.899} $\pm$ 0.025 & 0.896 $\pm $0.044 & 0.897 $\pm$ 0.045 & 0.901 $\pm$ 0.025 & 0.929 $\pm$ 0.028 \\
+  \tn       & 0.568 $\pm$ 0.049 & 0.775 $\pm$ 0.084 & 0.807 $\pm$ 0.038 & 0.868 $\pm$ 0.012 & 0.877 $\pm$ 0.025 & \textbf{1.000} $\pm$ 0.000\\ 
+  \mtl      & 0.740 $\pm$ 0.095 & 0.894 $\pm$ 0.111 & \textbf{0.929} $\pm$ 0.079 & \textbf{0.960} $\pm$ 0.032 & \textbf{0.923} $\pm$ 0.127 & \textbf{1.000} $\pm$ 0.000 \\ \midrule
+
+  \multicolumn{7}{c}{\textbf{NIFO Decision Support}}       \\ \midrule
+  \resn     & 0.753 $\pm$ 0.056 & 0.899 $\pm$ 0.025 & 0.896 $\pm $0.044 & 0.897 $\pm$ 0.045 & 0.901 $\pm$ 0.025 & 0.929 $\pm$ 0.028 \\
+  \tn       & 0.568 $\pm$ 0.049 & 0.775 $\pm$ 0.084 & 0.807 $\pm$ 0.038 & 0.868 $\pm$ 0.012 & 0.877 $\pm$ 0.025 & \textbf{1.000} $\pm$ 0.000\\ 
+  \mtl      & \textbf{0.998} $\pm$ 0.032 & \textbf{0.995} $\pm$ 0.000 & \textbf{0.998} $\pm$ 0.000 & \textbf{0.998} $\pm$ 0.032 & \textbf{0.995} $\pm$ 0.000 & \textbf{0.999} $\pm$ 0.016 \\ \midrule
+
+  \end{tabular}
+  \caption{Experiment results on VW with \mtl using $\lambda=0.8$.}
+  \label{tab:wv_square_filtered_l=0.8}
+  \end{table}

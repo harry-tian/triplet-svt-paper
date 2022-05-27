@@ -1,0 +1,162 @@
+%!TEX root = main.tex
+
+\section{Introduction}
+
+Despite the impressive performance of machine learning models, humans are often the final decision maker in high-stake domains due to ethical and legal concerns \citep{lai+tan:19,green2019principles} and the model should be designed to play a support role.
+% \yuxin{do we have a reference to this statement?}
+%% CT-0516: similarly avoiding the performance only connotation
+% how much it improves the user's performance.
+In order to supply meaningful information, the model obviously cannot be illiterate in the underlying problem, e.g., a decision support model for breast cancer radiology should be able to give diagnosis at a reasonable accuracy.
+But a high \textit{autonomous} performance 
+% does not guarantee a high decision support performance,
+may not provide the most effective decision support,
+and these two objectives might not correlate perfectly.
+% When the model's solution involves some strategy that even the best human experts cannot fathom, e.g., AlphaGo's famous move 37~\citep{silver2016mastering,silver2017mastering,metz2016two}, the human user 
+% faces a dilemma: it would seem irresponsible to simply trust the model, but it would also be irrational to dismiss it completely.
+% \chenhao{I am a little unsure what the takeaway should be in the final sentence. I think there is a better way to do the transition.}
+
+% However, models trained to only maximize classification accuracy might not produce the best representations for case-based decision support.
+% We focus on a metric learning aspect of this problem: distances computed using the classification model's embeddings might not align with the human user's implicit metric of visual similarity.
+% As a result, the examples retrieved with these embeddings might be less effective for decision support.
+Figure~\ref{fig:model_vs_human} illustrates this problem on a classification dataset of butterfly vs.\ moth.
+A high-accuracy \resn \citep{he2016deep} produces highly linearly-separable embeddings, but the nearest neighbor of the test example may not serve as effective justifications of model predictions because similarity in the model representation space may not align with human visual perception.
+% \chenhao{we should add that we hypothesize that humans have task-specific perception, which is especially true in radiology applications somewhere.}
+% an effective decision support.
+Instead, if we use embeddings trained specifically to mimic human visual similarity on this dataset, we would get a different example whose similarity to the test example is much more interpretable.
+
+% In algorithmic decision support, the model's role is to supply information to {\em help} human users solve their tasks, and we evaluate the model by how well it supports human decision making~\citep{kolodneer1991improving,begum2009case,liao2000case,angehrn1998case}. 
+
+In this paper, we study the tension between these two objectives that are ideal in decision support:
+\begin{enumerate*}[label=(\roman*)]
+  \item solving the task autonomously, and
+  \item understanding
+  %  the user's needs
+  human intuitions in a task
+\end{enumerate*}.
+% \shi{i'd avoid using the term intuition} \chenhao{I think needs mean someting different}
+We focus on case-based decision support for classification problems \citep{kolodneer1991improving,begum2009case,liao2000case,angehrn1998case}.
+The two objectives entail that the learned representations 
+\begin{enumerate*}[label=(\roman*)]
+  \item can solve the task and are thus separable between classes, and
+  \item constitute a metric space that is aligned with human perception of similarity between examples.
+\end{enumerate*}
+
+
+We formalize the problem of case-based decision support and discuss two common use cases: \text{justification} and \textit{decision support}. 
+In general, for each test example, the model selects examples from the training data to help users make decisions.
+In justification, the nearest neighbor in the predicted class is selected to justify the prediction.
+Ideally, models can identify nearest neighbors that humans also perceive as similar to the test example to help humans assess the validity of the predicted label.
+In decision support, the nearest neighbors in each class are selected to provide evidence to allow human to make decisions while preserving human agency.
+%% CT-0516: I do not think that this is aligned with our experiments, and also maximizing the user's accuracy can involve deception
+% along with the model's predicted label, the system also picks several labeled training examples to the user, with the goal of maximizing the user's classification accuracy.
+
+
+% \begin{figure}[h]
+% \centering
+% \includegraphics[width=.6\linewidth]{figures/model_vs_human}
+% \caption{Nearest neighbor retreived by the model representation might not align with human visual similarity metric.}
+% \label{fig:model_vs_human}
+% \end{figure}
+
+\begin{figure}[t]
+\centering
+\includegraphics[width=.8\linewidth]{figures/intro_v2.pdf}
+\caption{Nearest neighbor retrieved by the model representation might not align with human similarity judgment. The \resn embeddings (512-dim) are visualized using t-SNE \cite{van2008visualizing}. The purple circle represents a specific 
+test instance. The nearest neighbor found by \resn (pink circle) is not as visually similar 
+% to human perception 
+as the instance in cyan circle found by optimizing a metric learning objective.
+% \cc{tried a version with tsne visualization of ResNet. is it counterintutive in terms of `nearest' neighbor since tsne reduce the dimension from 512 to 12 and doesn't reserve the local proximilty. maybe we should just draw a fictional one that resembles more to shi's original figure}
+% \chenhao{yeah, I think you can remove the axis so that it looks more fictional. Make the dots bigger, add some transparency, and put the RESN nearest neighbor image on the closest point in the figure.}
+}
+\label{fig:model_vs_human}
+\end{figure}
+
+
+
+
+%In this case, the second example is more likely to convince the human user to agree with the model.
+%Human-compatible representation is advantageous when the model classification is correct---which, in this case, it is; but when the model is incorrect, this can be seen as deception.
+%We discuss this caveat in Section~\ref{sec:discussion}.
+
+We propose a novel multi-task learning framework that combines supervised learning and metric learning.
+Specifically, we use human triplet judgments (i.e., choosing which example is more similar to a reference example among two candidates) to capture human visual perception related to a classification task, and supplement standard classification objectives with a triplet loss function~\cite{balntas2016learning}.
+Our problem setup is mainly concerned with the effectiveness of the learned representation for case-based decision support.
+Thus, it differs from supervised classification where the learned representation is a byproduct of classification, and also differs from metric learning, where the learned representation is not optimized for a particular decision.
+
+Using both synthetic data and human subject experiments, we show that representation learned from our framework can indeed identify nearest neighbors that are perceived as more similar than that derived from supervised classification.
+This observation holds both for the predicted class and the other class in binary classification problems.
+Furthermore, the learned representation is also tailor to classification and allow (synthetic) humans to make more accurate predictions.
+
+% Using both synthetic data and human subject experiments, we show that representations learned from this framework provide more effective case-based decision support and are thus more human-compatible.
+% Two key insights in setting up the objective function are
+% \begin{enumerate*}[label=(\roman*)]
+%   \item it is critical to filter out triplet judgments that are {\em inconsistent} with the goal of the classification;
+%   \item representations of lower dimensionality provide more effective decision support
+% \end{enumerate*}.
+
+% \chenhao{I am not sure whether we need another ending paragraph, maybe Yuxin can make a pass}\yuxin{will do.}
+
+To summarize, our main contributions include: 
+% \chenhao{this is quite empty for now.}
+\begin{itemize}[leftmargin=*,itemsep=0pt, topsep=0pt]
+  \item We highlight the importance of alignment in learning human-compatible representations for case-based decision support.
+  \item We propose a multi-task learning framework that combines supervised learning and metric learning.
+  \item Empirical results with synthetic data and human subject experiments demonstrate the effectiveness of our approach.
+\end{itemize}
+
+% \yuxin{I think we should (perhaps more explicitly) tease apart the novelty of our problem setup -- we are not learning representation as byproduct of classification, or treating classification as a downstream task for metric learning, but rather use representation as constraints which needs to be satisfied in a NN classification task. A direct comparison against the broad ordinal embedding/ metric learning/ triplet learning literature is necessary. One way to do it is in intro, but in this case, bump up related work seems to be to our advantage}
+
+
+%\chenhao{Introduction figure, a direct comparison example, show how ResNET does not map with humans}
+
+
+
+
+
+% In radiology, an \textit{atlas} is a collection of radiology images accompanied by clinical findings.
+% The atlas is a valuable resourse for both practicing radiologists and residents in training.
+% For practicing radiologists, the atlas provides support for diagnosis by acting as a reference: the radiologist can page through an atlas, compare the patient image with the images illustrated in the book, and arrive at a differential diagnosis\shi{find cite}.
+% Radiology residency training relies on intensive practice~\citep{barrows1980problem,mantas2010recommendations}, and atlases are a crucial source for training cases.
+
+% Radiologists naturally follow a case-based reasoning approach: even when they do not explicitly seek references, they still implicitly recall previous cases when giving a diagnosis\shi{expand and find cite}.
+% In case-based reasoning, a solution to the current case is constructed by retrieving and adapting solutions of former, already solved cases\shi{find cite}.
+% The atlas provides value in decision support by providing references and cultivating case-based reasoning.
+% However, the traditional atlas has several limitations both for decision support and for training.
+
+% \paragraph{For decision support, the retrieval of relevant cases using a traditional atlas is tedious}
+% The efficacy of case-based reasoning largely depends on whether relevant cases can be successfully retrieved.
+% Using a traditional atlas, the retrieval process is manual and tedious: the radiologist must page through a book and compare each illustrated image to the current patient's images.
+% Frequently the radiologist would need to go back and forth between several cases in order to determine which one is most relevant.
+
+% \paragraph{For training, the atlas does not adjust to the learner's progress}
+% Adapting to each individual learner is crucial in teaching\shi{find cite}.
+% In problem-based learning, this means selecting the right training example for each learner at a given time.
+% The selection should take into consideration the learners' progress, i.e., their familiarity with different types of examples.
+% Such information can be inferred from the history of interaction between the learner and the system, e.g., the learner's accuracy on each category of examples and how much time has passed since the previous study.
+% Methods for computer-assisted training that resemble a digital atlas have been investigated in medicine~\citep{childs2005effective,brezis2004interactive,wofford2001computer,choules2007use}.
+% These systems typically use real patients' medical records, but the curation of training cases often requires excessive additional effort\shi{find cite}.
+% The cost of training example curation in radiology is prohibitive for adaptive teaching.
+% Consequently, diagnostic training systems advancing decision-making skills are not well established in radiological education\shi{find cite}.
+
+% One challenge underlies both issues: the retrieval of items to optimize human objectives.
+% In other words, we want to go beyond the retrieval based on a single standard of visual similarity and retrieve items to satify the needs of individual users.
+% We think of these two issues as instantiations of the same challenge with two different human objectives: one is to support decision and the other is to accelerate radiology training.
+% In training, our objective can be further divided into two versions: with or without decision support at test time, in other words, whether the radiologist will have access to computer assistance when giving diagnosis for future patients.
+% To summarize, we delineate three closely related yet distinct objectives:
+% \begin{itemize}
+%     \item Assistance for radiology diagonistics
+%     \item Training for radiology diagnostics
+%     \item Training for radiology diagnostics with assistance
+% \end{itemize}
+
+% Mention proximal development
+
+% To do retrieval, we must have some metric to measure the similarity between a pair of items.
+% Human users also have their own notion of similarity measurement.
+% We believe that in all three objectives, the model and the human user must align in their similarity metrics to some degree.
+
+
+% Our paper is at the confluence of three research directions: content-based image retrieval, machine assisted diagnostics, and machine teaching.
+
+
+% \shi{Mention image interpretation somewhere}

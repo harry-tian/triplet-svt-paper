@@ -1,0 +1,29 @@
+%!TEX root = ../supp_main.tex
+
+\begin{table}[h!]
+  \small
+  \centering
+  \begin{tabular}{@{}lrrrrrr@{}}
+  \toprule
+  Alignments   & 50\%   & 80\%   & 83\%  & 92\%  & 92.5\% & 100\%     \\ \midrule
+  Weights  &  [0,0,1,1]  & [1,0,1,1] &  [0,1,1,1] &  [1,256,256,256] &  [256,1,256,256] &  [1,1,1,1]  \\ \midrule
+
+  \multicolumn{7}{c}{\textbf{NI-H2H}} \\ \midrule
+  \mtl vs. \resn     & 0.921 $\pm$ 0.015 & 0.900 $\pm$ 0.035 & 0.920 $\pm$ 0.023 & 0.895 $\pm$ 0.008 & 0.867 $\pm$ 0.034 & 0.846 $\pm$ 0.016\\ \midrule
+
+  \multicolumn{7}{c}{\textbf{NO-H2H}} \\ \midrule
+  \mtl vs. \resn     & 0.951 $\pm$ 0.034 & 0.969 $\pm$ 0.024 & 0.991 $\pm$ 0.002 & 0.991 $\pm$ 0.004 & 0.958 $\pm$ 0.010 & 0.980 $\pm$ 0.023\\ \midrule
+
+  \multicolumn{7}{c}{\textbf{NINO Decision Support}}       \\ \midrule
+  \resn     & \textbf{0.753} $\pm$ 0.056 & \textbf{0.899} $\pm$ 0.025 & \textbf{0.896} $\pm $0.044 & \textbf{0.897} $\pm$ 0.045 & \textbf{0.901} $\pm$ 0.025 & 0.929 $\pm$ 0.028 \\
+  \tn       & 0.568 $\pm$ 0.049 & 0.775 $\pm$ 0.084 & 0.807 $\pm$ 0.038 & 0.868 $\pm$ 0.012 & 0.877 $\pm$ 0.025 & \textbf{1.000} $\pm$ 0.000\\ 
+  \mtl      & 0.603 $\pm$ 0.051 & 0.801 $\pm$ 0.025 & 0.848 $\pm$ 0.053 & 0.880 $\pm$ 0.000 & 0.880 $\pm$ 0.081 & \textbf{1.000} $\pm$ 0.000 \\ \midrule
+
+  \multicolumn{7}{c}{\textbf{NIFO Decision Support}}       \\ \midrule
+  \resn     & 0.753 $\pm$ 0.056 & 0.899 $\pm$ 0.025 & 0.896 $\pm $0.044 & 0.897 $\pm$ 0.045 & 0.901 $\pm$ 0.025 & 0.929 $\pm$ 0.028 \\
+  \tn       & 0.568 $\pm$ 0.049 & 0.775 $\pm$ 0.084 & 0.807 $\pm$ 0.038 & 0.868 $\pm$ 0.012 & 0.877 $\pm$ 0.025 & \textbf{1.000} $\pm$ 0.000\\ 
+  \mtl      & \textbf{0.996} $\pm$ 0.004 & \textbf{0.999} $\pm$ 0.004 & \textbf{0.996} $\pm$ 0.004 & \textbf{0.996} $\pm$ 0.004 & \textbf{0.996} $\pm$ 0.004 & 0.997 $\pm$ 0.004 \\ \midrule
+  \end{tabular}
+  \caption{Experiment results on VW with \mtl useing $\lambda=0.5$ and unfiltered triplets. }
+  \label{tab:wv_square_unfiltered_l=0.5}
+  \end{table}

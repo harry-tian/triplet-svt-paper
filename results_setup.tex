@@ -1,0 +1,109 @@
+%!TEX root = main.tex 
+
+\section{Experimental Setup}
+
+In this section, we review the specific model instantiation in our experiments and provide the detailed experimental setup for justification and decision support.
+
+\para{Models.}
+% Here we provide architecture details about our model and baselines.
+All models and baselines use \resn-18~\citep{he2016deep} pretrained on ImageNet as the backbone image encoder. 
+Following \citep{chen2020simple}, we take the output of the average pooling layer and feed it into an MLP projection head with desired embedding dimension. We use the output of the projection head as our final embeddings, where we add task-specific head and loss for training and evaluation.
+% We project with either the original 512-dimension final layer 
+% \chenhao{update the language, han} 
+% or projecting it to a 50-dimension layer 
+% \chenhao{now I am not even sure that this is correct.} 
+% because lower dimensions have been shown more effective in metric learning 
+% \chenhao{han, do you have a citation?}.
+We use Euclidean distance as the similarity metric for both loss calculation and distance measurement during example selection in decision support. All similarity measurement and losses calculation are computed using the final embeddings.
+
+% All models and baselines use an ImageNet-pretrained \resn-18~\citep{he2016deep} as the backbone. Inspired by ~\citep{chen2020simclr}, we take the output after the average pooling layer and use a MLP with one hidden layer to project the output to either a 512-dimension or a 50-dimension embedding. We treat the embedding dimension as a hyperparameter. We use Euclidean distance as the similarity metric; all similarity metrics and related losses are computed using the final embedding.
+
+
+Our first baseline is \resn fine-tuned with classification data using cross-entropy loss; we simply call it \resn moving forward.
+\resn typically achieves high classification accuracy but does not necessarily produce human-aligned representations; as shown by \citet{roads2020}, the alignment is even worse with more parameters.
+Our second baseline model is the same pretrained model finetuned with human triplets using triplet margin loss~\citep{balntas2016learning}; we call it \tn.
+As \tn directly approximates human similarity metric, we expect it to produce more aligned representations but achieve lower classification accuracy than \resn and may provide limited effectiveness in decision support.
+% We finetune \resn on our downstream task (more implementation details can be found in the supplementary material Section \ref{sec:implementation}). 
+
+% \para{Multi-Task Learning Model} 
+Our model, \mtl, combines the two loss terms following Equation~\ref{eq:mtl_loss}.
+The hyperparameter $\lambda$ controls the trade-off between alignment and classification accuracy:
+with higher $\lambda$ we expect \mtl to be more similar to \resn, with lower $\lambda$ steering it towards \tn.
+Empirically tuning $\lambda$ confirms this hypothesis (see the supplementary materials). For the main paper, we present results with
+one value of $\lambda$ for each experiment. More details about hyperparameter tuning can be found in the supplementary materials.
+
+% For the main paper, we set $\lambda=0.5$. \chenhao{is this true for both VW and BM?}
+% We expect it to achieve a good trade-off between alignment and classification accuracy, and, ideally, get the best of both worlds.
+
+% \para{Embedding dimension affects evaluation} The number of dimensions in the embedding have a large influence on similarity metrics and the triplet losses.
+% A high-dimensional embedding may retain more ordinal information from the triplets; a low-dimensional embedding, while potentially losing information, may bound the information in a tighter space.\shi{this is too hand-wavy but i don't really know a good reason why we try both dimensionalities.}
+% We treat the dimensionality of the embeddings as a hyperparameter and experiment with both 512-dimension and 50-dimension embeddings.
+% The pretrained backbone has a 1000-dimension embedding, before that is a 512-dimension embedding; connecting the two is a fully-connected layer.
+% For the 512-dimension setting, we simply drop the fully-connected layer; for the 50-dimension setting we drop the fully-connected layer and replace it with a randomly initialized fully-connected layer with a 50-dimension output.\shi{Harry please confirm}
+% \shi{why not use 1000-dimension too?}
+
+\para{Filtering classification-inconsistent triplets.}
+Human triplets may not always align with the goal of classification, i.e., annotator may pick a candidate from the incorrect class as closer than a candidate from the correct class, which we refer to as {\em classification-inconsistent triplets}.
+% We would like to see if aligning with human similarity metric is helpful without addressing the most difficult cases, i.e., when annotators pick a candidate from the incorrect class as closer.
+As our goal is to generate human-compatible decision-focused representation, such triplets may introduce signals in human visual similarity that is counterproductive to the specific classification problem.
+We thus consider a variant of \mtl, where we remove classification-inconsistent triplets in the training data; we refer to this condition as \textit{filtered}. 
+Although filtering triplets may lose important human similarity information, it may also remove human noise and steer \mtl towards a more effective representations for classification.
+ 
+
+
+
+
+\para{Evaluation setup and metrics.}
+Our method is designed to align representations with human similarity metrics and at the same time retain the representations' predictive power for classification.
+We can evaluate these representations with classification and triplet accuracy using existing data, but 
+% to evaluate in our end task which is case-based decision support, we still need an example selection policy.
+our main evaluation is designed to simulate case-based decision support scenarios.
+
+\begin{itemize}[itemsep=0pt, topsep=0pt, leftmargin=*]
+  \item Justification (``\textbf{H2H}''). 
+  % One possible strategy to examine the quality of representations is to ask people to subjectively rate similarity between the test image and the justification. However, self-reported ratings are known to be problematic. \chenhao{add cite} 
+  To derive objective judgment of the quality of justification, we setup head-to-head comparisons between two justifications derived from two representations and examine which justification (synthetic) human considers more similar.
+  In addition to the typical justification for the predicted label, we also examine that for the other class as those examples will be used in decision support.
+  We refer to the nearest example with the predicted label as {\em NI}, and nearest example in the other class as {\em NO}.
+
+  \item Decision support (``\textbf{NINO}''). Following \secref{sec:formulation}, we retrieve the nearest neighbors from each class. We use the accuracy of (synthetic) human as the measure of effective decision support while preserving human agency.
+
+  \item ``Over-reliance'' decision support (``\textbf{NIFO}''). We retrieves the  nearest example with the predicted label
+   and the furthest example from the other class (furthest out-of-class; FO).
+  If the representation is aligned with human similarity metric, this approach encourages people to follow the predicted label, which likely leads to over-reliance and may be unethical in practice.
+  Here, we use this scenario to evaluate the quality of the learned representation.
+%   \harry{change the "deceiving" here?}
+
+\end{itemize}
+
+
+% The design of these policies is a separate, complicated research problem~\shi{find cite, maybe machine teaching or protodash}; it is out of the scope of this paper.
+% Here, we experiment with a set of simple heuristic policies that is somewhat representative of what's being used in real-world applications.\shi{find cite}
+% We assume that the classification problem is binary moving forward and discuss how our method and evaluation can generalize to more than two classes in \shi{probably supplementary materials?}.
+
+% \begin{itemize}[topsep=-1pt,leftmargin=*,itemsep=-1pt]
+%    % with RESN given human/TN: comparing nearest in-class across models 
+  
+%   % nearest in-class + nearest out-of-class
+%   % \item \underline{Valid NINO}: similar to NINO, we constrain the NO by selecting NOs which are further than NIs.
+%   % nearest in-class + nearest out-of-class no nearer than NI
+%   \item{$k$-NIFO (nearest in-class, furthest out-of-class)} retrieves $k$ nearest neighbors from the predicted class and $k$ furthest examples from the other class.
+%   % nearest in-class + farthest out-of-class
+%   % \item Classification accuracy
+%   % % \item 1-NN accuracy
+%   % \item Triplet accuracy
+%   % \item Decision support evaluations:
+%   % \begin{itemize}
+%   % \item direct comparison with RESN given human/TN
+%   % \item NINO decision support
+%   % \item valid NINO decision support
+%   % \item NIFO decision support{}
+%   % \end{itemize}
+% \end{itemize}
+
+% For the main paper, we focus on $k=1$ and present additional results in the supplementary material Section \ref{sec:additional_syn}.
+% \chenhao{do we need different $k$}
+% \cc{harry add this?}
+% \harry{I don't really want to do this... seems messy?}
+% \harry{Will leave this part last as a low-priority task.}
+

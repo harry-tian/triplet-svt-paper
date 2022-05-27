@@ -1,0 +1,16 @@
+\begin{table}[t]
+    \centering
+    \begin{tabular}{|r|r|rr|rr|}
+        \hline
+        \multicolumn{1}{|l|}{} & \multicolumn{1}{l|}{} & \multicolumn{2}{l|}{Filtered}      & \multicolumn{2}{l|}{Unfiltered}    \\ \hline
+        Dim.                   & Model                 & \multicolumn{1}{r|}{NINO}  & NIFO  & \multicolumn{1}{r|}{NINO}  & NIFO  \\ \hline
+        \multirow{3}{*}{50}    & ResNet                & \multicolumn{1}{r|}{0.675} & 0.825 & \multicolumn{1}{r|}{0.550} & 0.650 \\ \cline{2-6} 
+                               & TN                    & \multicolumn{1}{r|}{0.950} & 1.000 & \multicolumn{1}{r|}{0.950} & 1.000 \\ \cline{2-6} 
+                               & MTL                   & \multicolumn{1}{r|}{0.875} & 1.000 & \multicolumn{1}{r|}{0.900} & 1.000 \\ \hline
+        \multirow{3}{*}{512}   & ResNet                & \multicolumn{1}{r|}{0.875} & 0.875 & \multicolumn{1}{r|}{0.925} & 0.900 \\ \cline{2-6} 
+                               & TN                    & \multicolumn{1}{r|}{0.925} & 1.000 & \multicolumn{1}{r|}{0.875} & 1.000 \\ \cline{2-6} 
+                               & MTL                   & \multicolumn{1}{r|}{0.900} & 1.000 & \multicolumn{1}{r|}{0.800} & 1.000 \\ \hline
+    \end{tabular}
+    \caption{Decision support accuracy of BM models.}
+    \label{tab:bm-decision}
+\end{table}

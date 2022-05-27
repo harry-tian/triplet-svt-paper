@@ -1,0 +1,32 @@
+%!TEX root = ../main.tex
+
+\begin{table}[]
+  \small
+  \centering
+  \begin{tabular}{@{}lrrrrrr@{}}
+  \toprule
+  Alignments   & 50\%   & 80\%   & 83\%  & 92\%  & 92.5\% & 100\%     \\ \midrule
+  Weights  &  [0,0,1,1]  & [1,0,1,1] &  [0,1,1,1] &  [1,256,256,256] &  [256,1,256,256] &  [1,1,1,1]  \\ \midrule
+
+  \multicolumn{7}{c}{\textbf{NI-H2H}} \\ \midrule
+  \mtl vs. \resn     & 0.917 & 0.914 & 0.903 & 0.880 & 0.872 & 0.808 \\ \midrule
+%   TN       & 0.926 & 0.933 & 0.924 & 0.882 & 0.888 & 0.821 \\ \bottomrule
+  \multicolumn{7}{c}{\textbf{NO-H2H}} \\ \midrule
+  \mtl vs. \resn     & 0.916 & 0.968 & 0.946 & 0.958 & 0.962 & 0.970 \\ \midrule
+  \multicolumn{7}{c}{\textbf{NINO Decision Support}}       \\ \midrule
+  \resn     & 0.753 & 0.899 & 0.896 & 0.897 & 0.901 & 0.929 \\
+  \tn       & 0.568 & 0.775 & 0.807 & 0.868 & 0.877 & \textbf{1.000} \\ 
+  \mtl      & \textbf{0.759} & \textbf{0.901} & \textbf{0.928} & \textbf{0.949} & \textbf{0.955} & \textbf{1.000} \\ \midrule
+  \multicolumn{7}{c}{\textbf{NIFO Decision Support}}       \\ \midrule
+  \resn     & 0.704 & 0.900 & 0.903 & 0.903 & 0.901 & 0.919 \\
+  \tn       & 0.906 & 0.881 & 0.863 & 0.876 & 0.877 & 1.000 \\ 
+  \mtl      & \textbf{1.000} & \textbf{1.000} & \textbf{1.000} & \textbf{1.000} & \textbf{1.000} & \textbf{1.000} \\ \midrule
+  \end{tabular}
+  \caption{Experiment results on VW with H2H comparison and decision support evaluations.
+  % \harry{presenting weights this way seems a bit ugly? plus the col width are not balanced}
+% \cc{maybe we can discard weights. its confusing}
+% \chenhao{I think weights are useful for people who want to knwo more details, maybe make that second row? the numbers are not there}
+% \chenhao{switch the order to NI H2H, NO H2H, NINO and NIFO since we are making NINO more salient}
+  }
+  \label{tab:main-results}
+  \end{table}
