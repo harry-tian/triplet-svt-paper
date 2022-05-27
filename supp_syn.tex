@@ -38,7 +38,9 @@ All procedures that involve humans (e.g., triplet data collection and evaluation
 
 To quantify the disagreement, we use 1-NN classification accuracy following the simulated human similarity metric; we refer to it as the alignment score.
 The alignment score ranges from 50\% (setting the informative features' weights to 0 and distractor weights to 1) to 100\% (setting all weights to 1).
-We generate alignment scores by searching through weight combinations of the simulated human visual similarity metrics. We search the weights in powers of 2, from 0 to $2^{10}$, producing a sparse distribution of alignments (~\figref{fig:align-hist}). Increasing search range to powers of 10 produces smoother distribution, but the weights are also more extreme and unrealistic. We note that the alignment distribution may vary across different datasets. In our experiments we choose weights and alignments to be as representative to the distribution as possible. In each alignment setting, we generate 40,000 triplets using the simulated humans similarity metric.
+We generate alignment scores by searching through weight combinations of the simulated human visual similarity metrics. We search the weights in powers of 2, from 0 to $2^{10}$, producing a sparse distribution of alignments.
+%  (~\figref{fig:align-hist}). Increasing search range to powers of 10 produces smoother distribution, but the weights are also more extreme and unrealistic. We note that the alignment distribution may vary across different datasets. 
+ In our experiments we choose weights and alignments to be as representative to the distribution as possible. In each alignment setting, we generate 40,000 triplets using the simulated humans similarity metric.
 
 
 
@@ -46,9 +48,12 @@ We generate alignment scores by searching through weight combinations of the sim
 
 
 \subsubsection{Hyperparameters} 
-We train all models with a large emebdding dimension of 512 and a small emebdding dimension of 50 and observe that a 512-dimension embeddings is preferable based on most metrics. We also train \mtl on a filtered vs. unfiltered triplets as well as with different values $\lambda$ at 0.2, 0.5, and 0.8. 
+We train all models with a large emebdding dimension of 512 and a small emebdding dimension of 50 and observe that, in contrast to the experiments on BM, a 512-dimension embeddings is preferable based on most metrics and models. 
+We also train \mtl on a filtered vs. unfiltered triplets as well as with different values $\lambda$ at 0.2, 0.5, and 0.8. 
 For our main results, we report the performance with $\lambda=0.5$ and filtered triplets.
-We will discuss the effect of filtering later in this section.  In contrast to the experiments on BM, we observe that \mtl with 512-dimension embedding shows overall better performance than \mtl with 50-dimension embedding and show results for the latter in the next section.
+We will discuss the effect of filtering later in this section.  
+
+
 We use the Adam optimizer \cite{kingma2014adam} with learning rate $1e-4$.
 We use a training batch size of $40$ for triplet prediction, and $30$ for classification.
 
@@ -101,13 +106,13 @@ Table~\ref{tab:wv-square-clf-trip} shows how tuning $\lambda$ affects \mtl 's cl
 
 
 \para{\mtl significantly outperforms \resn in H2H.} 
-Our synthetic humans prefer \mtl over \resn by a large margin as justifications for both nearest in-class examples and nearest out-of-class examples, indicating the NIs and NOs selected from the \mtl representations are more aligned with the synthetic humans than \tn. % There is no clear pattern between 
+Our synthetic humans prefer \mtl over \resn by a large margin as justifications for both nearest in-class examples and nearest out-of-class examples, indicating the NIs and NOs selected from the \mtl representations are more aligned with the synthetic humans than \tn. 
 
 For NI H2H, the preference towards \mtl declines as the alignment improves, because if alignment between human similarity and classification increases, \resn can capture human similarity as a byproduct of classification.
 Also, NO H2H is higher than NI H2H, suggesting \resn learns a better representation within each class compared to between classes. 
 
 \para{\mtl provides the best decision support.} 
-Table \ref{tab:table1-ci} shows that \mtl achieves the highest NINO and NIFO decision support scores in all alignments. %This further emphasizes that the 
+Table \ref{tab:table1-ci} shows that \mtl achieves the highest NINO and NIFO decision support scores in all alignments. 
 In NINO decision support, \resn consistently outperforms \tn, highlighting that representation solely learned for metric learning is ineffective for decision support.
 For all models, the decision support performance improves as the alignments increases, suggesting that decision support is easier when human similarity judgement is aligned with the classification task.
 \resn and \tn are more comparable in NIFO, while \mtl consistently shows 100\%.
@@ -118,6 +123,23 @@ The fact that \resn shows comparable performance between NINO and NIFO further c
 This suggests that in terms of decision support, the benefit of filtering out human noise may overweigh the loss of some similarity judgment.
 
 
+
+\para{The effect of noise in triplets.}
+To test the limitations of \mtl, we perturb human judgment by adding noise to triplets. 
+We add noise to triplets by randomly flipping the similarity judgement (i.e., a triplet $(x^r, x^+, x^-)$ becomes $(x^r, x^-, x^+)$) with probability $p$.
+As shown in \figref{fig:noise}, direct comparison results decreases linearly as noise increases, decision support performance does not start decreasing util $p=0.5$. 
+This is not as surprising for two reasons. First, since VW is a binary dataset, half of the triplets are ones where $x^+, x^-$ belong to the same class; 
+flipping these triplets does not have a significant effect on the generated embeddings. 
+More importantly, filtering greatly reduces the adversarial effect of adding noise, highlighting the importance of filtering. 
+In comparison, \tn drops linearly in NINO, so do \mtl with unfiltered triplets.
+
+
+\para{Number of triplets} We examine the effect of the number of triplets. We decrease number of triplets by powers of 2 
+and find that H2H preference towards \mtl indeed declines as \mtl representation is less human-compatible with fewer training data.
+As for decision support, in NINO, \mtl declines and eventually approaches \resn except the outlier at end, while in NIFO, \mtl is able to stay 100\% even as the number of triplets declines. 
+
+
+% \subsubsection{Main results}
 
 
 
@@ -185,21 +207,6 @@ This suggests that in terms of decision support, the benefit of filtering out hu
 
 
 
-\para{The effect of noise in triplets.}
-To test the limitations of \mtl, we perturb human judgment by adding noise to triplets. 
-We add noise to triplets by randomly flipping the similarity judgement (i.e., a triplet $(x^r, x^+, x^-)$ becomes $(x^r, x^-, x^+)$) with probability $p$.
-As shown in \figref{fig:noise}, direct comparison results decreases linearly as noise increases, decision support performance does not start decreasing util $p=0.5$. 
-This is not as surprising for two reasons. First, since VW is a binary dataset, half of the triplets are ones where $x^+, x^-$ belong to the same class; 
-flipping these triplets does not have a significant effect on the generated embeddings. 
-More importantly, filtering greatly reduces the adversarial effect of adding noise, highlighting the importance of filtering. 
-In comparison, \tn drops linearly in NINO, so do \mtl with unfiltered triplets.
-% (see supplementary materials).
-
-
-\para{Number of triplets} We examine the effect of the number of triplets. We decrease number of triplets by powers of 2 
-and find that H2H preference towards \mtl indeed declines as \mtl representation is less human-compatible with fewer training data.
-As for decision support, in NINO, \mtl declines and eventually approaches \resn except the outlier at end, while in NIFO, \mtl is able to stay 100\% even as the number of triplets declines. 
-
 
 
 \subsection{Linear decision boundaries}
@@ -221,9 +228,13 @@ We create a linear decision boundary on VW without altering the dataset (\figref
 % triplet accuracy of tuning $\lambda$, showing a similar trend to the previous experiment.
 \paragraph{H2H and decision support results}
 
-In Table~\ref{tab:wv_lin_filtered_l=0.5} we present results with the best set of hyperparameter: filtered triplets, 512-dimension embedding, $\lambda=0.5$. We show results for $\lambda=0.2$ in Table 13 and $\lambda=0.8$ in Table 14. We also show results with 50-dimension \mtl in Table 15 and unfiltered \mtl in Table 16. 
+In Table~\ref{tab:wv_lin_filtered_l=0.5} we present results with the best set of hyperparameter: filtered triplets, 512-dimension embedding, $\lambda=0.5$. Similar to the experiment on VW double-square decision boundary experiments, we observe that \mtl outperforms \resn in both H2H comparison and decision support performance. 
 
-Similar to the experiment on VW double-square decision boundary experiments, we see no clear relation between $\lambda$, embedding dimension and our evaluation metrics. Table 16 again shows that filtered \mtl leads to better decision support but worse H2H.
+
+
+% We show results for $\lambda=0.2$ in Table 13 and $\lambda=0.8$ in Table 14. We also show results with 50-dimension \mtl in Table 15 and unfiltered \mtl in Table 16. 
+
+% Similar to the experiment on VW double-square decision boundary experiments, we see no clear relation between $\lambda$, embedding dimension and our evaluation metrics. Table 16 again shows that filtered \mtl leads to better decision support but worse H2H.
 
 
 % \input{tables/supp/wv_squarelin_filtered_l=0.2_ci.tex}
