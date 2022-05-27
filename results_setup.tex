@@ -6,31 +6,39 @@ In this section, we review the specific model instantiation in our experiments a
 
 \para{Models.}
 % Here we provide architecture details about our model and baselines.
-All models and baselines use \resn-18~\citep{he2016deep} pretrained on ImageNet as the backbone image encoder. 
-Following \citep{chen2020simple}, we take the output of the average pooling layer and feed it into an MLP projection head with desired embedding dimension. We use the output of the projection head as our final embeddings, where we add task-specific head and loss for training and evaluation.
+All models and baselines use \resn-18~\citep{he2016deep} as the backbone image encoder. We use the output of the final layer as our embedding.
+% All models and baselines use \resn-18~\citep{he2016deep} pretrained on ImageNet as the backbone image encoder. 
+% Following \citep{chen2020simple}, we take the output of the average pooling layer and feed it into an MLP projection head with desired embedding dimension. 
+% We use the output of the projection head as our final embeddings, where we add task-specific head and loss for training and evaluation.
 % We project with either the original 512-dimension final layer 
 % \chenhao{update the language, han} 
 % or projecting it to a 50-dimension layer 
 % \chenhao{now I am not even sure that this is correct.} 
 % because lower dimensions have been shown more effective in metric learning 
 % \chenhao{han, do you have a citation?}.
-We use Euclidean distance as the similarity metric for both loss calculation and distance measurement during example selection in decision support. All similarity measurement and losses calculation are computed using the final embeddings.
+% We use Euclidean distance as the similarity metric for both loss calculation and distance measurement during example selection in decision support. 
+% All similarity measurement and losses calculation are computed using the final embeddings.
+We use Euclidean distance as similarity metric for loss calculation and distance measurement. 
+More details about model architecture can be found in the appendix.
+
 
 % All models and baselines use an ImageNet-pretrained \resn-18~\citep{he2016deep} as the backbone. Inspired by ~\citep{chen2020simclr}, we take the output after the average pooling layer and use a MLP with one hidden layer to project the output to either a 512-dimension or a 50-dimension embedding. We treat the embedding dimension as a hyperparameter. We use Euclidean distance as the similarity metric; all similarity metrics and related losses are computed using the final embedding.
 
 
-Our first baseline is \resn fine-tuned with classification data using cross-entropy loss; we simply call it \resn moving forward.
-\resn typically achieves high classification accuracy but does not necessarily produce human-aligned representations; as shown by \citet{roads2020}, the alignment is even worse with more parameters.
-Our second baseline model is the same pretrained model finetuned with human triplets using triplet margin loss~\citep{balntas2016learning}; we call it \tn.
+Our first baseline is \resn fine-tuned with classification data using cross-entropy loss; we simply call it \resn.
+\resn typically achieves high classification accuracy but does not necessarily produce human-aligned representations ~\citep{roads2020}.
+% , the alignment is even worse with more parameters.
+Our second baseline model, \tn,  is the same pretrained model finetuned with human triplets using triplet margin loss~\citep{balntas2016learning}.
 As \tn directly approximates human similarity metric, we expect it to produce more aligned representations but achieve lower classification accuracy than \resn and may provide limited effectiveness in decision support.
 % We finetune \resn on our downstream task (more implementation details can be found in the supplementary material Section \ref{sec:implementation}). 
 
 % \para{Multi-Task Learning Model} 
-Our model, \mtl, combines the two loss terms following Equation~\ref{eq:mtl_loss}.
+Our model, \mtl, combines cross-entropy loss and triplet margin loss.
+% Our model, \mtl, combines the two loss terms following Equation~\ref{eq:mtl_loss}.
 The hyperparameter $\lambda$ controls the trade-off between alignment and classification accuracy:
 with higher $\lambda$ we expect \mtl to be more similar to \resn, with lower $\lambda$ steering it towards \tn.
-Empirically tuning $\lambda$ confirms this hypothesis (see the supplementary materials). For the main paper, we present results with
-one value of $\lambda$ for each experiment. More details about hyperparameter tuning can be found in the supplementary materials.
+% Empirically tuning $\lambda$ confirms this hypothesis (see the supplementary materials). 
+For the main paper, we present results with one value of $\lambda$ for each experiment. More details about hyperparameter tuning can be found in the supplementary materials.
 
 % For the main paper, we set $\lambda=0.5$. \chenhao{is this true for both VW and BM?}
 % We expect it to achieve a good trade-off between alignment and classification accuracy, and, ideally, get the best of both worlds.

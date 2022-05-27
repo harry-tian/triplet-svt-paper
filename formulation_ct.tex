@@ -67,13 +67,11 @@ We collect data in the form of human similarity judgment triplets (or \textit{tr
 Each triplet is an ordered tuple: $(x^r, x^+, x^-)$, which indicates $x^+$ is judged by human as being closer to the reference $x^r$ than $x^-$~\citep{balntas2016learning}.
 
 Given a triplet dataset $T$ and labeled classification dataset $D$, we use triplet margin loss~\citep{balntas2016learning} in conjunction with the cross-entropy loss, controlled by a hyperparameter $\lambda$:
-
-\begin{align}
+\begin{align*}
   &L = \lambda L_\mathrm{CrossEntropy(CE)} + (1-\lambda) L_\mathrm{TripletMargin(TM)} \label{eq:mtl_loss} \\
   &L_\mathrm{CE} = - \sum_{(x,y)\sim D} \log\left(p_\theta(y|x)\right) \\
   &L_\mathrm{TM} = \sum_{(x^r,x^+,x^-)\sim T} \max\left(d_\theta(x^r,x^+)-d(x^r,x^-)+\mu,0\right)
-\end{align}
-
+\end{align*}
 % \begin{equation}
 % \underbrace{\left[- \sum_{(x,y)\sim D} \log\left(p_\theta(y|x)\right)\right]}_\textrm{Cross-entropy loss} + (1-\lambda)\underbrace{\left[\sum_{(x^r,x^+,x^-)\sim T} \max\left(d_\theta(x^r,x^+)-d(x^r,x^-)+\mu,0\right)\right]}_\textrm{Triplet margin loss}
 % \label{eq:mtl_loss}

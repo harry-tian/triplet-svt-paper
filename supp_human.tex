@@ -1,0 +1,182 @@
+%!TEX root = main.tex 
+
+\clearpage
+\section{Human subject study}
+\label{sec:supp_human}
+
+\subsection{Dataset}
+Our BM dataset include four species of butterflies and moths including: Peacock Butterfly, Ringlet Butterfly, Caterpiller Moth, and Tiger Moth. An example of each species is shown in Fig \ref{fig:bm-species}.
+
+\begin{figure}[t]
+    \centering
+    \begin{subfigure}{0.24\textwidth}
+      \includegraphics[width=\textwidth]{figures/bm/species/ringlet}
+      \caption{Ringlet Butterfly}
+    \end{subfigure}
+    \begin{subfigure}{0.24\textwidth}
+        \includegraphics[width=\textwidth]{figures/bm/species/peacock}
+        \caption{Peacock Butterfly}
+    \end{subfigure}
+    \begin{subfigure}{0.24\textwidth}
+        \includegraphics[width=\textwidth]{figures/bm/species/caterpillar}
+        \caption{Caterpiller Moth}
+    \end{subfigure}
+    \begin{subfigure}{0.24\textwidth}
+        \includegraphics[width=\textwidth]{figures/bm/species/tiger}
+        \caption{Tiger Moth}
+    \end{subfigure}
+    \caption{An example of each species in the BM dataset.}
+    \label{fig:bm-species}
+\end{figure}
+
+\subsection{Hyperparameters}
+We use different controlling strength between classification and human judgment prediction, including $\lambda$s at 0.2, 0.5, and 0.8.
+We use the Adam optimizer \cite{kingma2014adam} with learning rate $1e-4$.
+Our training batch size is $120$ for triplet prediction, and $30$ for classification.
+% \chenhao{how do you stop? choose the number of epoches?}
+All models are trained for 50 epoches. The checkpoint with the lowest validation total loss in each run is selected for evaluations and applications.
+
+\subsection{Classification and Triplet Accuracy}
+\input{tables/bm-models.tex}
+We present the test-time classification and triplet accuracy of our models in Table \ref{tab:bm-models}. Both \resn and \mtl achieve above 97.5\% classification accuracy. \mtl in the 512-dimension unfiltered setting achieve 100.0\% classification accuracy. Both \tn and \mtl achieve above 70.7\% triplet accuracy. Both \tn model and \mtl achieve the highest triplet accuracy in the 50-dimension unfiltered setting with triplet accuracy at 75.9\% and 76.2\% respectively.
+
+We also evaluate the pretrained LPIPS metric \cite{zhang2018perceptual} on our triplet test set as baselines for learning perceptual similarity.
+Results with AlexNet backbone and VGG backbone are at 54.5\% and 55.0\% triplet accuracy respectively, suggesting that \tn and \mtl provides much better triplet accuracy in this task compared to a generic model.
+
+
+\subsection{Subject Evaluations}
+We include survey questions in the end of the decision support tasks. 
+The two required questions are: 
+1) accuracy belief: ``How many questions do you think you have answered correctly?'' 
+2) support usefulness: ``Do you agree that the reference images are helpful when you decide the class of the test image?'' This is measured in a 5-point Likert scale.
+Results are reported in Fig \ref{fig:subjective}. 
+
+Subjective beliefs of accuracy display a similar trend as that in the objective measure of accuracy. \mtl NINO and \mtl NIFO are significantly better than RIRO, \resn NINO, and \resn NIFO. However, the differences among RIRO, \resn NINO and \resn NIFO are no longer significant.
+
+Subjective beliefs of decision support usefulness display the same trend as that in the subjective measure of accuracy beliefs. \mtl NINO and \mtl NIFO are believed to be more useful than other decision supports, among which there is no significant difference.
+
+\begin{figure}[t]
+    \centering
+    \begin{subfigure}[t]{0.48\textwidth}
+        \includegraphics[width=\textwidth]{figures/bm/prolific/decision-acc_belief.pdf}
+        \caption{Subjective evaluation of participants' beliefs on their accuracy.}
+    \end{subfigure}
+    \begin{subfigure}[t]{0.48\textwidth}
+        \includegraphics[width=\textwidth]{figures/bm/prolific/decision-usefulness.pdf}
+        \caption{Subjective evaluation of participants' beliefs on decision support usefulness.}
+    \end{subfigure}
+    \caption{Subjective evaluation in the decision support task.}
+    \label{fig:subjective}
+\end{figure}
+
+
+% \clearpage
+\subsection{Interface}
+We present the screenshots of our interface in this section. 
+Our interface consists of four stages. 
+Participants will see the consent page at the beginning, as shown in Fig \ref{fig:interface_consent}. 
+After consent page, participants will see task specific instructions, as shown in Fig \ref{fig:interface_prolific}. 
+After entering the task, partipants will see the questions, as shown in Fig \ref{fig:interface_questions}. 
+We also include two attention check questions in all studies to check whether participants are paying attention to the questions. 
+Following suggestions on Prolific, we design the attention check with explicit instructions, as shown in Fig \ref{fig:interface_attention}.
+After finishing all questions, participants will reach the end page and return to Prolific, as shown in Fig \ref{fig:interface_end}. 
+Our study is reviewed by the Internal Review Board (IRB) at our institution with study number that we will release upon acceptance to preserve anonymity.
+% IRB22-0388. 
+% \han{Will we be identified through the IRB number?}
+
+
+\begin{figure}
+    \centering
+    \includegraphics[width=\textwidth]{figures/interface/consent-annotate.pdf}
+    \caption{The consent form page on our interface.}
+    \label{fig:interface_consent}
+\end{figure}
+
+\begin{figure}
+    \centering
+    \begin{subfigure}[t]{0.48\textwidth}
+        \includegraphics[width=\textwidth]{figures/interface/prolific-annotate.pdf}
+        \caption{The annotation and head-to-head comparision task instructions.}
+    \end{subfigure}
+    \begin{subfigure}[t]{0.48\textwidth}
+        \includegraphics[width=\textwidth]{figures/interface/prolific-decision.pdf}
+        \caption{The decision support task instructions.}
+    \end{subfigure}
+    \caption{The task-specific instruction page on our interface.}
+    \label{fig:interface_prolific}
+\end{figure}
+
+\begin{figure}
+    \centering
+    \begin{subfigure}[t]{0.48\textwidth}
+        \includegraphics[width=\textwidth]{figures/interface/annotate.pdf}
+        \caption{The annotation and head-to-head comparision task questions.}
+    \end{subfigure}
+    \begin{subfigure}[t]{0.48\textwidth}
+        \includegraphics[width=\textwidth]{figures/interface/decision.pdf}
+        \caption{The decision support task questions.}
+    \end{subfigure}
+    \caption{The task-specific questions on our interface.}
+    \label{fig:interface_questions}
+\end{figure}
+
+\begin{figure}
+    \centering
+    \begin{subfigure}[t]{0.48\textwidth}
+        \includegraphics[width=\textwidth]{figures/interface/attention-annotate.pdf}
+        \caption{The annotation and head-to-head comparision task attention check questions.}
+    \end{subfigure}
+    \begin{subfigure}[t]{0.48\textwidth}
+        \includegraphics[width=\textwidth]{figures/interface/attention-decision.pdf}
+        \caption{The decision support task attention check questions.}
+    \end{subfigure}
+    \caption{The task-specific attention check questions on our interface.}
+    \label{fig:interface_attention}
+\end{figure}
+
+\begin{figure}
+    \centering
+    \includegraphics[width=\textwidth]{figures/interface/survey-decision.pdf}
+    \caption{The survey page of the decision support task on our interface.}
+    \label{fig:interface_survey_decision}
+\end{figure}
+
+\begin{figure}
+    \centering
+    \begin{subfigure}[t]{0.48\textwidth}
+        \includegraphics[width=\textwidth]{figures/interface/end-annotate.pdf}
+        \caption{The annotation and head-to-head comparision task end page.}
+    \end{subfigure}
+    \begin{subfigure}[t]{0.48\textwidth}
+        \includegraphics[width=\textwidth]{figures/interface/end-decision.pdf}
+        \caption{The decision support task end page.\\ }
+    \end{subfigure}
+    \caption{The task-specific end page on our interface.}
+    \label{fig:interface_end}
+\end{figure}
+
+
+
+\subsection{Crowdsourcing}
+We recruit our participants on a crowdsourcing platform: Prolific (www.prolific.co) [April-May 2022].
+We conduct three total studies: an annotation study, a decision support study, and a head-to-head comparison study.
+We use the default standard sampling on Prolific for participant recruitment.
+Eligible participants are limited to those reside in United States.
+Participants are not allowed to attempt the same study more than once.
+
+\para{Triplet annotation study}
+We recruit 90 participants in total. We conduct a pilot study with 7 participants to test the interface, and recruit 83 participants for the actual collection of annotations. 3 participants fail the attention check questions and their responses are excluded in the results. We spend in total \$76.01 with an average pay at \$10.63 per hour. The median time taken to complete the study is 3'22''.
+
+% ap1 12 9.34, ab1 14.55 10.67, ab2 10.97 24, ab3 9.4 32.
+% median time 202.199s
+
+\para{Decision support study}
+We recruit 161 participants in total. 3 participants fail the attention check questions and their responses are excluded in the results. We take the first 30 responses in each conditon to compile the results. We spend in total \$126.40 with an average pay at \$9.32 per hour. The median time taken to complete the study is 3'53''.
+
+% median time 232.611s
+
+
+\para{Head-to-head comparison study}
+We recruit 31 participants in total, where 1 participant fail the attention check questions and their responses are excluded in the results. We spend in total \$24.00 with an average pay at \$9.40 per hour. The median time taken to complete the study is 3'43''.
+
+% median time 223.385s
