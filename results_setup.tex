@@ -2,20 +2,15 @@
 
 \section{Experimental Setup}
 
-In this section, we review the specific model instantiation in our experiments and provide the detailed experimental setup for justification and decision support.
+\harry{we can remove this sentence? }In this section, we review the specific model instantiation in our experiments and provide the detailed experimental setup for justification and decision support.
 
-\para{Models.}
+
+\para{Models.} \harry{I deleted a few sentences here}
 % Here we provide architecture details about our model and baselines.
 All models and baselines use \resn-18~\citep{he2016deep} as the backbone image encoder. We use the output of the final layer as our embedding.
 % All models and baselines use \resn-18~\citep{he2016deep} pretrained on ImageNet as the backbone image encoder. 
 % Following \citep{chen2020simple}, we take the output of the average pooling layer and feed it into an MLP projection head with desired embedding dimension. 
 % We use the output of the projection head as our final embeddings, where we add task-specific head and loss for training and evaluation.
-% We project with either the original 512-dimension final layer 
-% \chenhao{update the language, han} 
-% or projecting it to a 50-dimension layer 
-% \chenhao{now I am not even sure that this is correct.} 
-% because lower dimensions have been shown more effective in metric learning 
-% \chenhao{han, do you have a citation?}.
 % We use Euclidean distance as the similarity metric for both loss calculation and distance measurement during example selection in decision support. 
 % All similarity measurement and losses calculation are computed using the final embeddings.
 We use Euclidean distance as similarity metric for loss calculation and distance measurement. 
@@ -35,10 +30,10 @@ As \tn directly approximates human similarity metric, we expect it to produce mo
 % \para{Multi-Task Learning Model} 
 Our model, \mtl, combines cross-entropy loss and triplet margin loss.
 % Our model, \mtl, combines the two loss terms following Equation~\ref{eq:mtl_loss}.
-The hyperparameter $\lambda$ controls the trade-off between alignment and classification accuracy:
+The hyperparameter $\lambda$ controls the trade-off between alignment and classification accuracy.
 with higher $\lambda$ we expect \mtl to be more similar to \resn, with lower $\lambda$ steering it towards \tn.
-% Empirically tuning $\lambda$ confirms this hypothesis (see the supplementary materials). 
-For the main paper, we present results with one value of $\lambda$ for each experiment. More details about hyperparameter tuning can be found in the supplementary materials.
+% Empirically tuning $\lambda$ confirms this hypothesis (see the appendix). 
+For the main paper, we present results with one value of $\lambda$ for each experiment. See the appendix for results about tuning $\lambda$.
 
 % For the main paper, we set $\lambda=0.5$. \chenhao{is this true for both VW and BM?}
 % We expect it to achieve a good trade-off between alignment and classification accuracy, and, ideally, get the best of both worlds.
@@ -87,7 +82,7 @@ our main evaluation is designed to simulate case-based decision support scenario
 
 % The design of these policies is a separate, complicated research problem~\shi{find cite, maybe machine teaching or protodash}; it is out of the scope of this paper.
 % Here, we experiment with a set of simple heuristic policies that is somewhat representative of what's being used in real-world applications.\shi{find cite}
-% We assume that the classification problem is binary moving forward and discuss how our method and evaluation can generalize to more than two classes in \shi{probably supplementary materials?}.
+% We assume that the classification problem is binary moving forward and discuss how our method and evaluation can generalize to more than two classes in \shi{probably appendix?}.
 
 % \begin{itemize}[topsep=-1pt,leftmargin=*,itemsep=-1pt]
 %    % with RESN given human/TN: comparing nearest in-class across models 

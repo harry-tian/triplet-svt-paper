@@ -22,7 +22,7 @@ Each example contains four features, two of them---head and body size---are pred
 We generate 2000 images and randomly split the dataset into training, validation, and testing sets in a 60\%:20\%:20\% ratio.
 The labels are determined various synthetic decision boundaries, such as the one shown in \figref{fig:vw}a.
 % \shi{move this sentence to results part}
-We report the results for \figref{fig:vw}a in the main paper; see the supplementary materials for full results.
+We report the results for \figref{fig:vw}a in the main paper; see the appendix for full results.
 
 To generate triplets data, we simulate human visual similarity metrics by adding weights to each feature in Euclidean distance computation.
 By changing the weight on each feature, we can control the level of disagreement between simulated human and the groundtruth.
@@ -30,16 +30,16 @@ All procedures that involve humans (e.g., triplet data collection and evaluation
 
 To quantify the disagreement, we use 1-NN classification accuracy following the simulated human similarity metric; we refer to it as the alignment score.
 The alignment score ranges from 50\% (setting the informative features' weights to 0 and distractor weights to 1) to 100\% (setting all weights to 1).
-See supplementary materials for more details on how we generate these weights.
+See appendix for more details on how we generate these weights.
 In each setting, we generate 40,000 triplets using the simulated humans similarity metric.
-% \chenhao{explain the choice of weights in more details and refer to the supplementary materials.}
+% \chenhao{explain the choice of weights in more details and refer to the appendix.}
 % \harry{TODO (hard to explain our selection, it is quite arbitrary)}
 % \chenhao{explain the search process at least, explain at least how you control the four features}
 
-% \para{Hyperparameters. } For VW we oberve that using a 512-dimension embedding provides better performance across all evaluation metrics and all models. Other details can be found in supplementary materials.
+% \para{Hyperparameters. } For VW we oberve that using a 512-dimension embedding provides better performance across all evaluation metrics and all models. Other details can be found in appendix.
 % \harry{do we need more here? batch size, learning rate etc.}
-% \chenhao{not here, but we should say it at other places and include all these in the supplementary materials.}
-% \harry{where's a good place?}\cc{supplementary materials}
+% \chenhao{not here, but we should say it at other places and include all these in the appendix.}
+% \harry{where's a good place?}\cc{appendix}
 
 \subsection{Results}
 
@@ -49,14 +49,14 @@ In each setting, we generate 40,000 triplets using the simulated humans similari
 % \shi{The connection between zone of proximal development and the gap between decision support and training.}
 
 % \para{\mtl achieves comparable classification and triplet accuracy.} We show in \figref{fig:wv-acc} that 
-% \mtl achieves high classfication accuracy compared to RESN and high triplet accuracy compared to TN (results are included in the supplementary materials). 
-% \cc{we need to include this result in the main paper not supplementary materials (?)}
+% \mtl achieves high classfication accuracy compared to RESN and high triplet accuracy compared to TN (results are included in the appendix). 
+% \cc{we need to include this result in the main paper not appendix (?)}
 % \chenhao{this should be at the beginning when we explain our table and what model we compare with. We do not need too many sentences here, but add numbers.}
 
 We compare \mtl, \resn, \tn on classification accuracy, triplet accuracy, and decision support performance for simulated humans. We train all three models with a large emebdding dimension of 512 and a small emebdding dimension of 50 and observe that a 512-dimension embeddings is preferable based on most metrics. We also train \mtl on a filtered vs. unfiltered triplets as well as with different values $\lambda$. 
 For our main results, we report the performance with $\lambda=0.5$ and filtered triplets.
 We will discuss the effect of filtering later in this section.
-$\lambda$'s role is relatively limited and we will discuss its effect in supplementary materials.
+$\lambda$'s role is relatively limited and we will discuss its effect in appendix.
 
 % We report the filtered condition decision support performance, but unfiltered triplets do have other advantages as will be discussed later in this section. 
 % We report the results $\lambda=0.5$, but .
@@ -68,7 +68,7 @@ $\lambda$'s role is relatively limited and we will discuss its effect in supplem
 % \shi{explain how you chose the filtered / unfiltered models. which metric did you use?}
 % We compare our filtered \mtl to two baselines \resn and unfiltered \tn.
 
-% More detailed results on \mtl classification and triplet accuracies are included in the supplementary materials.
+% More detailed results on \mtl classification and triplet accuracies are included in the appendix.
 
 In synthetic experiments, \mtl achieves the same perfect classification accuracy as \resn (100\%), and a triplet accuracy of 0.968 which is comparable to \tn.
 This shows that \mtl indeed learns both the classification task and human similarity prediction task.
@@ -165,7 +165,7 @@ As shown in \figref{fig:noise}, direct comparison results decreases linearly as 
 This is not as surprising for two reasons. First, since VW is a binary dataset, half of the triplets are ones where $x^+, x^-$ belong to the same class; 
 flipping these triplets does not have a significant effect on the generated embeddings. 
 More importantly, filtering greatly reduces the adversarial effect of adding noise, highlighting the importance of filtering. 
-In comparison, \tn drops linearly in NINO, so do \mtl with unfiltered triplets (see supplementary materials).
+In comparison, \tn drops linearly in NINO, so do \mtl with unfiltered triplets (see appendix).
 
 % \begin{figure}[ht]
 %   \centering
