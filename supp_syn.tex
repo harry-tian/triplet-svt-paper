@@ -58,51 +58,86 @@ We use the Adam optimizer \cite{kingma2014adam} with learning rate $1e-4$.
 We use a training batch size of $40$ for triplet prediction, and $30$ for classification.
 
 
-\subsubsection{Results}
+\subsubsection{Main results}
 
 \input{tables/supp/clf_triplet_acc.tex}
 \input{tables/supp/wv_square_filtered_l=0.5_ci.tex}
 
-\begin{table}[h!]
-  \begin{minipage}[b]{0.38\textwidth}
-    \centering
-    \includegraphics[width=\textwidth]{figures/filtered_NINO_err.pdf}
-    \captionof{figure}{NINO decision support on \mtl with filtered and unfiltered triplets. Filtered triplets leads to greatly improved performance. }
-    \label{fig:filter}
-  \end{minipage}
-  \hfill
-  \begin{minipage}[b]{0.6\textwidth}
-    \centering
+\begin{figure}[h!]
+      \centering
+      \begin{subfigure}[b]{0.32\textwidth}
+        \includegraphics[width=\textwidth]{figures/filtered_NINO_err.pdf}
+        \caption{NINO decision support}
+        \end{subfigure}
+      \begin{subfigure}[b]{0.32\textwidth}
+        \includegraphics[width=\textwidth]{figures/supp/wv_square_NI-h2h_filter.pdf}
+        \caption{NI-H2H with \resn}
+      \end{subfigure}
+        \begin{subfigure}[b]{0.32\textwidth}
+        \includegraphics[width=\textwidth]{figures/supp/wv_square_NO-h2h_filter.pdf}
+        \caption{NO-H2H with \resn}
+      \end{subfigure}
+        \captionof{figure}{Decision support and H2H performance on VW square decision boundary data, comparing \mtl with filtered and unfiltered triplets.}
+        \label{fig:square-filter}
+\end{figure}
+  
+\begin{figure}[t]
+      \centering
+      \begin{subfigure}[b]{0.32\textwidth}
+        \includegraphics[width=\textwidth]{figures/noise_h2h_v1.pdf}
+        \end{subfigure}
+        \begin{subfigure}[b]{0.32\textwidth}
+        \includegraphics[width=\textwidth]{figures/noise_NINO_v1.pdf}
+        \end{subfigure}
+        \begin{subfigure}[b]{0.32\textwidth}
+        \includegraphics[width=\textwidth]{figures/noise_NIFO.pdf}
+        \end{subfigure}
+        \captionof{figure}{Results on VW double-square decision boundary data with varying number of triplets. \mtl uses filtered triplets}
+        \label{fig:noise}
+      \end{figure}
+
+\begin{figure}[h!]
+  \centering
+  \begin{subfigure}[b]{0.32\textwidth}
+    \includegraphics[width=\textwidth]{figures/supp/wv_square_noise_unfiltered_h2h.pdf}
+    \end{subfigure}
     \begin{subfigure}[b]{0.32\textwidth}
-      \includegraphics[width=\textwidth]{figures/noise_h2h_v1.pdf}
-      \end{subfigure}
-      \begin{subfigure}[b]{0.32\textwidth}
-      \includegraphics[width=\textwidth]{figures/noise_NINO_v1.pdf}
-      \end{subfigure}
-      \begin{subfigure}[b]{0.32\textwidth}
-      \includegraphics[width=\textwidth]{figures/noise_NIFO.pdf}
-      \end{subfigure}
-      \captionof{figure}{Noise hurts direct comparison more than decision support.}
-      \label{fig:noise}
-      \begin{subfigure}[b]{0.32\textwidth}
-        \includegraphics[width=\textwidth]{figures/num_h2h_v1.pdf}
-        \end{subfigure}
-        \begin{subfigure}[b]{0.32\textwidth}
-        \includegraphics[width=\textwidth]{figures/num_NINO_v1.pdf}
-        \end{subfigure}
-        \begin{subfigure}[b]{0.32\textwidth}
-        \includegraphics[width=\textwidth]{figures/num_NIFO_v1.pdf}
-        \end{subfigure}
-        \caption{\mtl performance declines as the number of triplets decreases, but shows strong NIFO decision support accuracy even with very few triplets.}
-        \label{fig:vary-num}
-  \end{minipage}
-\end{table}
+      \includegraphics[width=\textwidth]{figures/supp/wv_square_noise_unfiltered_NINO.pdf}
+    \end{subfigure}
+    \begin{subfigure}[b]{0.32\textwidth}
+      \includegraphics[width=\textwidth]{figures/supp/wv_square_noise_unfiltered_NIFO.pdf}
+    \end{subfigure}
+    \captionof{figure}{Results on VW double-square decision boundary data with varying number of triplets. \mtl uses unfiltered triplets}
+    \label{fig:noise-unfiltered}
+\end{figure}
+
+\begin{figure}[h!]
+  \begin{subfigure}[b]{0.32\textwidth}
+          \includegraphics[width=\textwidth]{figures/num_h2h_v1.pdf}
+          \end{subfigure}
+          \begin{subfigure}[b]{0.32\textwidth}
+          \includegraphics[width=\textwidth]{figures/num_NINO_v1.pdf}
+          \end{subfigure}
+          \begin{subfigure}[b]{0.32\textwidth}
+          \includegraphics[width=\textwidth]{figures/num_NIFO_v1.pdf}
+          \end{subfigure}
+          \caption{Results on VW double-square decision boundary data with varying number of triplets. \mtl uses unfiltered triplets}
+          \label{fig:vary-num}
+    \end{figure}
+
+\input{tables/supp/wv_square_filtered_l=0.2_ci.tex}
+
+% \input{tables/supp/wv_square_filtered_l=0.8_ci.tex}
+
+\input{tables/supp/wv_square_filtered_l=0.5_d=50.tex}
+
+% \input{tables/supp/wv_square_unfiltered_l=0.5_ci.tex}
 
 We compare \mtl, \resn, \tn on classification accuracy, triplet accuracy, and decision support performance for simulated humans. 
 Table~\ref{tab:wv-square-clf-trip} shows how tuning $\lambda$ affects \mtl 's classification and triplet accuracy. Higher $\lambda$ drives \mtl to behave more simlar to \resn while lower \mtl is more similar to \tn. This shows that \mtl indeed learns both the classification task and human similarity prediction task.
 
 
-\paragraph{H2H and decision support results} In Table~\ref{tab:table1-ci} we present results with the best set of hyperparameter: filtered triplets, 512-dimension embedding, $\lambda=0.5$. We present our main observations as follows.
+In Table~\ref{tab:table1-ci} we present results with the best set of hyperparameter: filtered triplets, 512-dimension embedding, $\lambda=0.5$. We present our main observations as follows.
 
 
 \para{\mtl significantly outperforms \resn in H2H.} 
@@ -118,9 +153,7 @@ For all models, the decision support performance improves as the alignments incr
 \resn and \tn are more comparable in NIFO, while \mtl consistently shows 100\%.
 The fact that \resn shows comparable performance between NINO and NIFO further confirms that \resn does not capture meaning similarity for examples from two different classes.
 
-\para{Filtering triplets leads to better decision support}. \figref{fig:filter} shows that filtering class-inconsistent triplets improves \mtl's decision support performance across all alignments. 
-% Further details in the supplementary material show that filtering slightly hurts direct comparison performance. 
-This suggests that in terms of decision support, the benefit of filtering out human noise may overweigh the loss of some similarity judgment.
+\para{Filtering triplets leads to better decision support}. \figref{fig:square-filter}(a) shows that filtering class-inconsistent triplets improves \mtl's decision support performance across all alignments. However, filtering does lead to slightly worse H2H performance. This suggests that in terms of decision support, the benefit of filtering out human noise may overweigh the loss of some similarity judgment.
 
 
 
@@ -131,179 +164,103 @@ As shown in \figref{fig:noise}, direct comparison results decreases linearly as 
 This is not as surprising for two reasons. First, since VW is a binary dataset, half of the triplets are ones where $x^+, x^-$ belong to the same class; 
 flipping these triplets does not have a significant effect on the generated embeddings. 
 More importantly, filtering greatly reduces the adversarial effect of adding noise, highlighting the importance of filtering. 
-In comparison, \tn drops linearly in NINO, so do \mtl with unfiltered triplets.
+In comparison, \tn drops linearly in NINO. \mtl trained on unfiltered triplets is also more vulnerable to noise perturbations. H2H and decision support performance is overall worse and decreases much faster than that of filtered \mtl.
 
 
-\para{Number of triplets} We examine the effect of the number of triplets. We decrease number of triplets by powers of 2 
+\para{Number of triplets} In ~\figref{fig:vary-num} we examine the effect of the number of triplets. We decrease number of triplets by powers of 2 
 and find that H2H preference towards \mtl indeed declines as \mtl representation is less human-compatible with fewer training data.
 As for decision support, in NINO, \mtl declines and eventually approaches \resn except the outlier at end, while in NIFO, \mtl is able to stay 100\% even as the number of triplets declines. 
 
 
-% \subsubsection{Main results}
+\subsubsection{Hyperparameter Tuning}
 
+\paragraph{Results for different $\lambda$.}
+We show results for $\lambda=0.2$ in Table~\ref{tab:wv_square_filtered_l=0.2} and $\lambda=0.8$ in Table~\ref{tab:wv_square_filtered_l=0.8}. We do not observe a clear trend between $\lambda$ and evaluation metric performances. In the previous section we present \mtl with $\lambda=0.5$ as it shows best overall performance.
 
+\paragraph{Results for 50-dimension embedding.} Table~\ref{tab:wv_square_filtered_l=0.5_d=50} shows results with all models outputing a 50-dimension embedding. Similar to $\lambda$, 50-dimension embedding gives slightly worse resutls, but the trend between embedding dimension and our evaluation metrics is not clear.
 
-% We show results for $\lambda=0.2$ in Table 13 and $\lambda=0.8$ in Table 14. We also show results with 50-dimension \mtl in Table 15 and unfiltered \mtl in Table 16. 
+\paragraph{Results for unfiltered \mtl.} 
+In table~\ref{tab:wv_square_unfiltered_l=0.5} we show results on \mtl with $\lambda=0.5$ using unfiltered triplets. As cocncluded previously, an unfiltered \mtl performs much worse in NINO decision support but slightly better in H2H.
 
-
-% \paragraph{Results for different $\lambda$.}
-% In Table~\ref{tab:wv_square_filtered_l=0.2} and Table~\ref{tab:wv_square_filtered_l=0.8} we show experiment results with \mtl using $\lambda=0.2$ and $\lambda=0.8$. We do not observe a clear trend between $\lambda$ and evaluation metric performances. In the main paper we present \mtl with $\lambda=0.5$ as it shows best overall performance.
-
-% \input{tables/supp/wv_square_filtered_l=0.2_ci.tex}
-
-% \input{tables/supp/wv_square_filtered_l=0.8_ci.tex}
-
-
-% \paragraph{Results for 50-dimension embedding.} Table~\ref{tab:wv_square_filtered_l=0.5_d=50} shows results with all models outputing a 50-dimension embedding. Similar to $\lambda$, the trend between embedding dimension and our evaluation metrics is not clear.
-
-% \input{tables/supp/wv_square_filtered_l=0.5_d=50.tex}
-
-
-% \paragraph{Results for unfiltered \mtl.} 
-% In table~\ref{tab:wv_square_unfiltered_l=0.5} we show results on \mtl with $\lambda=0.5$ using unfiltered triplets. An unfiltered \mtl performs much worse in NINO decision support, as also shown by Figure 3 in the main paper.
-% We also show in ~\figref{fig:filter-h2h} more clear effects of filtering on H2H performance. We conclude that filtered \mtl leads to worse H2H performance but much better decision support performance.
-
-% \input{tables/supp/wv_square_unfiltered_l=0.5_ci.tex}
-
-
-% \begin{table}[t]
-%     \begin{minipage}[b]{\textwidth}
-%       \centering
-%       \begin{subfigure}[b]{0.49\textwidth}
-%         \includegraphics[width=\textwidth]{figures/supp/wv_square_NI-h2h_filter.pdf}
-%         \end{subfigure}
-%         \begin{subfigure}[b]{0.49\textwidth}
-%         \includegraphics[width=\textwidth]{figures/supp/wv_square_NO-h2h_filter.pdf}
-%         \end{subfigure}
-%         \captionof{figure}{H2H performance on VW,  MTL with filtered and unfiltered triplets.}
-%         \label{fig:filter-h2h}
-%     \end{minipage}
-%   \end{table}
-  
-
-% \paragraph{The effect of noise on unfiltered \mtl} As ~\figref{fig:noise-unfiltered} shows, \mtl trained on unfiltered triplets is more vulnerable to noise perturbation. H2H and decision support performance is overall worse and decreases much faster than that of filtered \mtl (Figure 4 in the main paper).
-
-% \begin{table}[t]
-%   \begin{minipage}[b]{\textwidth}
-%     \centering
-%     \begin{subfigure}[b]{0.32\textwidth}
-%       \includegraphics[width=\textwidth]{figures/supp/wv_square_noise_unfiltered_h2h.pdf}
-%       \end{subfigure}
-%       \begin{subfigure}[b]{0.32\textwidth}
-%         \includegraphics[width=\textwidth]{figures/supp/wv_square_noise_unfiltered_NINO.pdf}
-%       \end{subfigure}
-%       \begin{subfigure}[b]{0.32\textwidth}
-%         \includegraphics[width=\textwidth]{figures/supp/wv_square_noise_unfiltered_NIFO.pdf}
-%       \end{subfigure}
-%       \captionof{figure}{Results on VW with varying noise levels. \mtl uses unfiltered triplets}
-%       \label{fig:noise-unfiltered}
-%   \end{minipage}
-% \end{table}
-
-
-
-
-% \input{tables/main-results.tex}
-
-
-
-
-
-\subsection{Linear decision boundaries}
-
-We create a linear decision boundary on VW without altering the dataset (\figref{fig:linear-dist}). We find the results are overall similar to the original VW data.
  
-\begin{table}[t]
-    \centering
-  \begin{subfigure}[b]{0.31\textwidth}
-    \includegraphics[width=\textwidth]{figures/supp/linear_dist.png}
+  \begin{figure}[t!]
+    \center
+    \includegraphics[width=0.31\textwidth]{figures/supp/linear_dist.png}
     \caption{VW dataset with a linear decision boundary.}
     \label{fig:linear-dist}
-  \end{subfigure}
-\end{table}
+  \end{figure}
 
 \input{tables/supp/wv_squarelin_filtered_l=0.5_ci.tex}
 
-% \paragraph{Classification and triplet accuracy.} Table~\ref{tab:lin-clf} shows classification and
-% triplet accuracy of tuning $\lambda$, showing a similar trend to the previous experiment.
-\paragraph{H2H and decision support results}
 
+\subsection{Linear decision boundary experiment results}
+We create a linear decision boundary on VW without altering the dataset (\figref{fig:linear-dist}). We find the results are overall similar to the original VW data.
+
+\subsubsection{Results}
+
+\paragraph{H2H and decision support results}
 In Table~\ref{tab:wv_lin_filtered_l=0.5} we present results with the best set of hyperparameter: filtered triplets, 512-dimension embedding, $\lambda=0.5$. Similar to the experiment on VW double-square decision boundary experiments, we observe that \mtl outperforms \resn in both H2H comparison and decision support performance. 
 
+We show results for $\lambda=0.2$ in Table~\ref{tab:wv_lin_filtered_l=0.2} and $\lambda=0.8$ in Table~\ref{tab:wv_lin_filtered_l=0.8}. We also show results with 50-dimension \mtl in Table~\ref{tab:wv_lin_filtered_l=0.5_d=50} and unfiltered \mtl in Table~\ref{tab:wv_lin_unfiltered_l=0.5}. 
+Similar to the experiment on VW double-square decision boundary experiments, we see no clear relation between $\lambda$, embedding dimension and our evaluation metrics. Table 16 again shows that filtered \mtl leads to better decision support but worse H2H.
 
 
-% We show results for $\lambda=0.2$ in Table 13 and $\lambda=0.8$ in Table 14. We also show results with 50-dimension \mtl in Table 15 and unfiltered \mtl in Table 16. 
-
-% Similar to the experiment on VW double-square decision boundary experiments, we see no clear relation between $\lambda$, embedding dimension and our evaluation metrics. Table 16 again shows that filtered \mtl leads to better decision support but worse H2H.
-
-
-% \input{tables/supp/wv_squarelin_filtered_l=0.2_ci.tex}
+\input{tables/supp/wv_squarelin_filtered_l=0.2_ci.tex}
 
 % \input{tables/supp/wv_squarelin_filtered_l=0.8_ci.tex}
 
-% \input{tables/supp/wv_squarelin_filtered_l=0.5_d=50.tex}
+\input{tables/supp/wv_squarelin_filtered_l=0.5_d=50.tex}
 
 % \input{tables/supp/wv_squarelin_unfiltered_l=0.5_ci.tex}
 
-% \paragraph{The effect of perturbations} Similar to previous results, adding noise harms H2H and decision support performance with unfiltered \mtl more so than filtered (~\figref{fig:lin-noise-filtered}, ~\figref{fig:lin-noise-unfiltered}). ~\figref{fig:lin-num} shows H2H and decision support performance with decreasing number of triplets; similar to results in the main paper, H2H decreases more rapidly.
+\paragraph{The effect of perturbations} Similar to previous results, adding noise harms H2H and decision support performance with unfiltered \mtl more so than filtered (~\figref{fig:lin-noise-filtered}, ~\figref{fig:lin-noise-unfiltered}). ~\figref{fig:lin-num} shows H2H and decision support performance with decreasing number of triplets; similar to results in the main paper, H2H decreases more rapidly.
 
-% \begin{table}[t]
-%   \begin{minipage}[b]{\textwidth}
-%     \centering
-%     \begin{subfigure}[b]{0.32\textwidth}
-%       \includegraphics[width=\textwidth]{figures/supp/wv_squarelin_noise_filtered_h2h.pdf}
-%       \end{subfigure}
-%       \begin{subfigure}[b]{0.32\textwidth}
-%         \includegraphics[width=\textwidth]{figures/supp/wv_squarelin_noise_filtered_NINO.pdf}
-%       \end{subfigure}
-%       \begin{subfigure}[b]{0.32\textwidth}
-%         \includegraphics[width=\textwidth]{figures/supp/wv_squarelin_noise_filtered_NIFO.pdf}
-%       \end{subfigure}
-%       \captionof{figure}{Results on VW linear decision boundary data with varying noise levels. \mtl uses filtered triplets.}
-%       \label{fig:lin-noise-filtered}
-%   \end{minipage}
-% \end{table}
+In conclusion, from two sets of synthetic data with different decision boundaries, we see \mtl overall outperforms our baselines \resn and \tn in H2H and decision support.
 
-
-% \begin{table}[t]
-%   \begin{minipage}[b]{\textwidth}
-%     \centering
-%     \begin{subfigure}[b]{0.32\textwidth}
-%       \includegraphics[width=\textwidth]{figures/supp/wv_squarelin_noise_unfiltered_h2h.pdf}
-%       \end{subfigure}
-%       \begin{subfigure}[b]{0.32\textwidth}
-%         \includegraphics[width=\textwidth]{figures/supp/wv_squarelin_noise_unfiltered_NINO.pdf}
-%       \end{subfigure}
-%       \begin{subfigure}[b]{0.32\textwidth}
-%         \includegraphics[width=\textwidth]{figures/supp/wv_squarelin_noise_unfiltered_NIFO.pdf}
-%       \end{subfigure}
-%       \captionof{figure}{Results on VW linear decision boundary data with varying noise levels. \mtl uses unfiltered triplets.}
-%       \label{fig:lin-noise-unfiltered}
-%   \end{minipage}
-% \end{table}
+\begin{figure}[t]
+    \centering
+    \begin{subfigure}[b]{0.32\textwidth}
+      \includegraphics[width=\textwidth]{figures/supp/wv_squarelin_noise_filtered_h2h.pdf}
+      \end{subfigure}
+      \begin{subfigure}[b]{0.32\textwidth}
+        \includegraphics[width=\textwidth]{figures/supp/wv_squarelin_noise_filtered_NINO.pdf}
+      \end{subfigure}
+      \begin{subfigure}[b]{0.32\textwidth}
+        \includegraphics[width=\textwidth]{figures/supp/wv_squarelin_noise_filtered_NIFO.pdf}
+      \end{subfigure}
+      \captionof{figure}{Results on VW linear decision boundary data with varying noise levels. \mtl uses filtered triplets.}
+      \label{fig:lin-noise-filtered}
+\end{figure}
 
 
-
-% \begin{table}[t]
-%   \begin{minipage}[b]{\textwidth}
-%     \centering
-%     \begin{subfigure}[b]{0.32\textwidth}
-%       \includegraphics[width=\textwidth]{figures/supp/wv_squarelin_num_h2h.pdf}
-%       \end{subfigure}
-%       \begin{subfigure}[b]{0.32\textwidth}
-%         \includegraphics[width=\textwidth]{figures/supp/wv_squarelin_num_NINO.pdf}
-%       \end{subfigure}
-%       \begin{subfigure}[b]{0.32\textwidth}
-%         \includegraphics[width=\textwidth]{figures/supp/wv_squarelin_num_NIFO.pdf}
-%       \end{subfigure}
-%       \captionof{figure}{Results on VW linear decision boundary data with varying number of triplets. \mtl uses filtered triplets.}
-%       \label{fig:lin-num}
-%   \end{minipage}
-% \end{table}
+\begin{figure}[h!]
+    \centering
+    \begin{subfigure}[b]{0.32\textwidth}
+      \includegraphics[width=\textwidth]{figures/supp/wv_squarelin_noise_unfiltered_h2h.pdf}
+      \end{subfigure}
+      \begin{subfigure}[b]{0.32\textwidth}
+        \includegraphics[width=\textwidth]{figures/supp/wv_squarelin_noise_unfiltered_NINO.pdf}
+      \end{subfigure}
+      \begin{subfigure}[b]{0.32\textwidth}
+        \includegraphics[width=\textwidth]{figures/supp/wv_squarelin_noise_unfiltered_NIFO.pdf}
+      \end{subfigure}
+      \captionof{figure}{Results on VW linear decision boundary data with varying noise levels. \mtl uses unfiltered triplets.}
+      \label{fig:lin-noise-unfiltered}
+\end{figure}
 
 
+\begin{figure}[h!]
+    \centering
+    \begin{subfigure}[b]{0.32\textwidth}
+      \includegraphics[width=\textwidth]{figures/supp/wv_squarelin_num_h2h.pdf}
+      \end{subfigure}
+      \begin{subfigure}[b]{0.32\textwidth}
+        \includegraphics[width=\textwidth]{figures/supp/wv_squarelin_num_NINO.pdf}
+      \end{subfigure}
+      \begin{subfigure}[b]{0.32\textwidth}
+        \includegraphics[width=\textwidth]{figures/supp/wv_squarelin_num_NIFO.pdf}
+      \end{subfigure}
+      \captionof{figure}{Results on VW linear decision boundary data with varying number of triplets. \mtl uses filtered triplets.}
+      \label{fig:lin-num}
+\end{figure}
 
-% \hfill
-% \begin{minipage}[b]{0.63\textwidth}
-%   \input{tables/supp/wv_squarelin_clf_triplet_acc.tex}
-% \end{minipage}
