@@ -10,7 +10,7 @@ Simply showing the predicted label from the model provides limited information a
 We focus on information presented in the form of examples from the training data, also known as case-based decision support \cite{kolodneer1991improving,begum2009case,liao2000case,angehrn1998case}.
 Case-based decision support can have diverse use cases and goals.
 Given a test example ($x$) and its predicted label ($\hat{y}$), two common use cases are:
-\begin{itemize}[topsep=0pt, leftmargin=*, itemsep=0pt]
+\begin{itemize}[topsep=0pt, leftmargin=*, noitemsep]
   \item Presenting the nearest neighbor of $x$ with label $\hat{y}$ as a justification of the predicted label. We refer to this scenario as {\em justification}.
   \item Presenting the nearest neighbor in each class without presenting $\hat{y}$. This approach makes a best-effort attempt to provide evidence for each class and leaves the final decision to human, without biasing human with the predicted label. We refer to this scenario as {\em decision support}.
 \end{itemize}
@@ -57,6 +57,28 @@ Models trained with supervised learning almost always exploit patterns in the tr
   \item not robust to distribution shifts, and
   \item counterintuitive or even unobservable for humans~\citep{ilyas2019adversarial,xiao2020noise}
 \end{enumerate*}.
+% \paragraph{Misalignment with human similarity metric is detrimental.}
+% To reason about the effectiveness of a representation model, we need to think about the goal of case-based decision support.
+% Let us start with justification, which is a relatively easy case. 
+% To justify a predicted label, the chosen example should ideally {\em appear similar} to the test image.
+% Crucially, this similarity is perceived by humans and the example policy selects the nearest neighbor based on model representation.
+% The gap between human representation and model representation (\figref{fig:model_vs_human}) leads to undesirable justification.
+
+% Decision support, however, represents a more complicated scenario.
+% We start by emphasizing that the goal is not simply to maximize human decision accuracy, because that goal can invite policies that may intentionally show examples that are far away to nudge or deceive human towards making a particular decision.
+% Choosing nearest neighbors in each class is thus an attempt to present the most reliable evidence from the representation model so that humans can make their own decisions, hence preserving their agency.
+% Therefore, the chosen nearest neighbors should be visually similar to the test instance by human perception, again highlighting the potential gap between model representation and human representation.
+% Assuming that human follow the natural strategy by picking the presented instance that's most {\em similar} to the test instance and answering with the corresponding label, then ideally, nearest neighbors in each class retain key information useful for classification so that they can reveal the separation learned in the model.
+
+% In both cases, aligning model representations with human similarity metric is crucial for case-based decision support; we refer to it as the \textit{metric alignment problem}.
+% It is unlikely that we will get high alignment by default even when the model's classification accuracy is comparable to human.
+% Models trained with supervised learning almost always exploit patterns in the training data that are
+% \begin{enumerate*}[label=(\roman*)]
+%   \item not robust to distribution shifts, and
+%   \item counterintuitive or even unobservable for humans~\citep{ilyas2019adversarial,xiao2020noise}
+% \end{enumerate*}.
+
+% HAN: below are already commented in NeurIPS submission.
 % When we are using more capable models to assist less capable human users, e.g., using an image classifier to assist radiology residents at breast cancer screening~\citep{wu2019deep,schaffter2020evaluation}, the human's incomplete knowledge about the task leads to a different kind of misalignment where the model relies on some legitimate feature that the human isn't aware of~\citep{kolodneer1991improving}.
 % In both cases, the misalignment between the model and the human's similarity metric can lead to ineffective case-based decision support; 
 % \shi{add another illustrative figure here?}

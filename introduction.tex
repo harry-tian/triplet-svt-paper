@@ -61,12 +61,13 @@ In decision support, the nearest neighbors in each class are selected to provide
 \begin{figure}[t]
 \centering
 \includegraphics[width=.8\linewidth]{figures/intro_v2.pdf}
-\caption{Nearest neighbor retrieved by the model representation might not align with human similarity judgment. The \resn embeddings (512-dim) are visualized using t-SNE \cite{van2008visualizing}. The purple circle represents a specific 
-test instance. The nearest neighbor found by \resn (pink circle) is not as visually similar 
+\caption{\harry{I removed a few sentences here} Nearest neighbor retrieved by the model representation might not align with human similarity judgment. 
+% The \resn embeddings (512-dim) are visualized using t-SNE \cite{van2008visualizing}. 
+% The purple circle represents a specific test instance.
+%  The nearest neighbor found by \resn (pink circle) is not as visually similar 
 % to human perception 
-as the instance in cyan circle found by optimizing a metric learning objective.
-% \cc{tried a version with tsne visualization of ResNet. is it counterintutive in terms of `nearest' neighbor since tsne reduce the dimension from 512 to 12 and doesn't reserve the local proximilty. maybe we should just draw a fictional one that resembles more to shi's original figure}
-% \chenhao{yeah, I think you can remove the axis so that it looks more fictional. Make the dots bigger, add some transparency, and put the RESN nearest neighbor image on the closest point in the figure.}
+% as the instance in cyan circle found by optimizing a metric learning objective.
+The nearest neighbor found by \resn  is not as visually similar as the instance  found by optimizing a metric learning objective.
 }
 \label{fig:model_vs_human}
 \end{figure}
@@ -79,7 +80,7 @@ as the instance in cyan circle found by optimizing a metric learning objective.
 %We discuss this caveat in Section~\ref{sec:discussion}.
 
 We propose a novel multi-task learning framework that combines supervised learning and metric learning.
-Specifically, we use human triplet judgments (i.e., choosing which example is more similar to a reference example among two candidates) to capture human visual perception related to a classification task, and supplement standard classification objectives with a triplet loss function~\cite{balntas2016learning}.
+Specifically, we use human triplet judgments (i.e., choosing which example is more similar to a reference example among two candidates) to capture human visual perception related to a classification task, and supplement standard classification objectives with a triplet loss~\cite{balntas2016learning}.
 Our problem setup is mainly concerned with the effectiveness of the learned representation for case-based decision support.
 Thus, it differs from supervised classification where the learned representation is a byproduct of classification, and also differs from metric learning, where the learned representation is not optimized for a particular decision.
 
@@ -97,6 +98,7 @@ Furthermore, the learned representation is also tailor to classification and all
 
 % \chenhao{I am not sure whether we need another ending paragraph, maybe Yuxin can make a pass}\yuxin{will do.}
 
+<<<<<<< HEAD
 % To summarize, our main contributions include: 
 % % \chenhao{this is quite empty for now.}
 % \begin{itemize}[leftmargin=*,itemsep=0pt, topsep=0pt]
@@ -104,6 +106,15 @@ Furthermore, the learned representation is also tailor to classification and all
 %   \item We propose a multi-task learning framework that combines supervised learning and metric learning.
 %   \item Empirical results with synthetic data and human subject experiments demonstrate the effectiveness of our approach.
 % \end{itemize}
+=======
+To summarize, our main contributions include: 
+% \chenhao{this is quite empty for now.}
+\begin{itemize}[leftmargin=*, noitemsep, topsep=-1.5pt]
+  \item We highlight the importance of alignment in learning human-compatible representations for case-based decision support.
+  \item We propose a multi-task learning framework that combines supervised learning and metric learning.
+  \item Empirical results with synthetic data and human subject studies demonstrate the effectiveness of our approach.
+\end{itemize}
+>>>>>>> d826d84d512431b06153b122f8f5b2a3ff0b5e92
 
 % \yuxin{I think we should (perhaps more explicitly) tease apart the novelty of our problem setup -- we are not learning representation as byproduct of classification, or treating classification as a downstream task for metric learning, but rather use representation as constraints which needs to be satisfied in a NN classification task. A direct comparison against the broad ordinal embedding/ metric learning/ triplet learning literature is necessary. One way to do it is in intro, but in this case, bump up related work seems to be to our advantage}
 
