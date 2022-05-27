@@ -12,7 +12,7 @@ For classifcation task we add an MLP classifier head.
 We also use one non-linear layer with softmax activation. 
 For triplet prediction, we will re-index the representations with the current triplet batch and calculate prediction or loss.
 We use the PyTorch framework \cite{pytorch} and the PyTorch Lightning framework \cite{pytorch-lightning} for implementation.
-Hyperparameters will be reported in \ref{sec:supp_syn} for models in the synthetic experiments and in \ref{sec:supp_human} for models in the human experiments.
+Hyperparameters will be reported in \ref{sec:supp_human} for models in the human experiments and in \ref{sec:supp_syn} for models in the synthetic experiments.
 
 \begin{figure}[t]
     \centering
@@ -35,10 +35,10 @@ Hyperparameters will be reported in \ref{sec:supp_syn} for models in the synthet
 We use a computing cluster at our institution. We train our models on nodes with different GPUs including Nvidia GeForce RTX2080Ti, Nvidia GeForce RTX3090, Nvidia Quadro RTX 8000, and Nvidia A40. All models are trained on one allocated node with one GPU access.
 
 
-\subsection{Reproducibility}
+% \subsection{Reproducibility}
 % Our source code of the implementation is included in this url: 
-We submit a preliminary version of the code and data.
-We will release more details upon acceptance.
+% We submit a preliminary version of the code and data.
+% We will release more details upon acceptance.
 % \han{To be zipped and upload: MTL model, trainer, evaluation script}.
 % \harry{We provde soure code if acceptance?}
 
