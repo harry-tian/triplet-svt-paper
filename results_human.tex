@@ -11,7 +11,9 @@ We recruit 80 crowdworkers on Prolific to acquire visual similarity triplets. In
 To generate triplets for annotation, we first sample the reference image: 2400 examples from the training set, 800 from the validation set, and 800 from the test set. Then we sample the two candidates from the training set for all three folds, since in decision support, the selected examples always come from the training set.
 
 
-\subsection{Model Evaluation with Synthetic Agent}
+% \subsection{Model Evaluation with Synthetic Agent}
+\subsection{Model training}
+\han{subsection title here is rephrased.}
 
 We trained models with different configurations. We mainly discuss two factors: 1) filtering out class-inconsistent triplets or not; 2) a large dimension at 512 vs. a small dimension at 50 for the output representations. We also tried different hyperparameters such as different $\lambda$s that control the strength of the classification loss and triplet loss as well as different random seeds. 
 We select the best \tn / \mtl / \resn model in each filtering-dimension configuration with the highest average of test classification accuracy and test triplet accuracies. 
@@ -29,11 +31,12 @@ Dimensionality does not affect triplet accuracy, but
 filtering out class-inconsistent triplets decrease triplet accuracy (76.2\% vs. 70.7\% with 50 dimensions, 74.1\% vs. 70.9\% with 512 dimensions). 
 This is because filtering creates a distribution shift of the triplet annotations, and limits the models' ability to learn general human visual similarity. 
 
+We also select a \tn model as a synthetic agent to run decision support simulations. See Appendix.
+\han{TN synthetic agent here is removed}
+% To run synthetic experiments for case-based decision support, we select the \tn with the best test triplet accuracy as our synthetic agent, and then evaluate the examples produced by all representations.
+% We do not compare with \tn as \tn is the synthetic agent.
 
-To run synthetic experiments for case-based decision support, we select the \tn with the best test triplet accuracy as our synthetic agent, and then evaluate the examples produced by all representations.
-We do not compare with \tn as \tn is the synthetic agent.
-
-
+\han{h2h results here is removed}
 % \para{\mtl is prefered over \resn in H2H.}
 
 % We compare examples selected from different models in different configurations to examples selected by the \resn baseline with the same dimensionality. 
@@ -43,26 +46,27 @@ We do not compare with \tn as \tn is the synthetic agent.
 % In all settings, the preference towards \mtl is above 50\%, but not as high as those in our synthetic experiments with the VW dataset.
 % Filtering out class-inconsistent triplets improves the preference for the nearest example with the predicted label, while hurting the preference for the nearest out-of-class example.
 
-
-\para{Decision support simulations shows a large dimension benefits \resn but hurts unfiltered \mtl in NINO.}
-We also run simulated decision support with the \tn synthetic agent. Table \ref{tb:bm_decision} shows decision support accuracy for different settings. 
-\resn have both higher NINO decision support accu and NIFO scores when we use a large dimension at 512. We hypothesize that for \resn, reducing dimension may force the network to discard dimensions useful for human judgments but keep dimensions useful for classification. We then use the 512-dimension \resn representations with the highest intrinsic evaluation scores as our \resn baseline in later studies.
-
-
-For \mtl, NINO decision support accuracy are in general comparable to 87.5\% score of the 512-dimension \resn baseline except unfiltered 512-dimension \mtl which has only 80\%. 
-We hypothesize that representations of large dimension may struggle more with contradicting signals between metric learning and supervised classification in the unfiltered settings.
-For NIFO, \mtl achieves perfect scores in all settings.
+\han{decision results with syn agent is removed}
+% \para{Decision support simulations shows a large dimension benefits \resn but hurts unfiltered \mtl in NINO.}
+% We also run simulated decision support with the \tn synthetic agent. Table \ref{tb:bm_decision} shows decision support accuracy for different settings. 
+% \resn have both higher NINO decision support accu and NIFO scores when we use a large dimension at 512. We hypothesize that for \resn, reducing dimension may force the network to discard dimensions useful for human judgments but keep dimensions useful for classification. We then use the 512-dimension \resn representations with the highest intrinsic evaluation scores as our \resn baseline in later studies.
 
 
-Overall, to proceed with our human-subject experiments, we choose \mtl filtered with 50 dimensions as our best \mtl model as it achieves a good balance between H2H and NINO decision support.
-For \resn, we choose the model with 512 dimensions.
-We conduct head-to-head comparison between these two models.
-Our synthetic agent prefers \mtl in 60\% of the nearest in-class examples and in 92.5\% of the nearest out-of-class examples.
+% For \mtl, NINO decision support accuracy are in general comparable to 87.5\% score of the 512-dimension \resn baseline except unfiltered 512-dimension \mtl which has only 80\%. 
+% We hypothesize that representations of large dimension may struggle more with contradicting signals between metric learning and supervised classification in the unfiltered settings.
+% For NIFO, \mtl achieves perfect scores in all settings.
+
+
+% Overall, to proceed with our human-subject experiments, we choose \mtl filtered with 50 dimensions as our best \mtl model as it achieves a good balance between H2H and NINO decision support.
+% For \resn, we choose the model with 512 dimensions.
+% We conduct head-to-head comparison between these two models.
+% Our synthetic agent prefers \mtl in 60\% of the nearest in-class examples and in 92.5\% of the nearest out-of-class examples.
 
 
 
 
 \begin{table}[t]
+    \han{h2h tatble here is removed}
     \centering
     % \begin{minipage}[b]{0.3\textwidth}
     %     \input{tables/bm-h2h.tex}
@@ -70,15 +74,16 @@ Our synthetic agent prefers \mtl in 60\% of the nearest in-class examples and in
     %     \label{tb:bm_h2h}
     % \end{minipage}
     % \hfill
-    \begin{minipage}[b]{0.32\textwidth}
+    \begin{minipage}[b]{0.48\textwidth}
         \input{tables/bm-decision-transposed.tex}
         \captionof{table}{BM decision support accuracy with synthetic agent.
         }
         \label{tb:bm_decision}
     \end{minipage}
     \hfill
-    \begin{minipage}[b]{0.32\textwidth}
-        \includegraphics[width=\textwidth]{figures/bm/prolific/decision.pdf}
+    \begin{minipage}[b]{0.48\textwidth}
+        \centering
+        \includegraphics[width=0.68\textwidth]{figures/bm/prolific/decision.pdf}
         \captionof{figure}{BM dataset decision support accuracy with human subject studies. Error bars mean 95\% confidence intervals.}
         \label{fig:bm_human_decision}
     \end{minipage}
@@ -136,6 +141,7 @@ Our synthetic agent prefers \mtl in 60\% of the nearest in-class examples and in
 We recruit crowdworkers on Prolific to evaluate representations produced by our models by doing decision support tasks and H2H comparison tasks. We acquired examples with different policies from two sets of model representations: the filtered 50-dimension representations \mtl and the 512-dimension \resn baseline representations. 
 We do not include \tn models in human studies, because in pactice \tn models cannot make predictions on class labels, therefore are unable to distinguish and select in-class and out-of-class examples.
 
+\han{h2h results here is removed}
 % \para{H2H comparision results show \mtl NI examples are slightly but significantly preferred over \resn NI examples according to human visual similarity.}
 % We also recruit 30 Prolific workers to make H2H comparisons between \mtl NI examples and \resn NI examples. The mean preference for \mtl over \resn is 0.5316 with a 95\% confidence interval of $\pm0.0302$ ($p=0.0413$ with one-sample t-test). 
 % This means the \mtl NI examples are closer to the test images than \resn NI examples with statistical significance according to human visual similarity.  
