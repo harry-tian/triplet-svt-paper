@@ -1,8 +1,9 @@
 %!TEX root = ../supp_main.tex
 
-\begin{table}[h]
+\begin{table}[t]
   \small
   \centering
+    \resizebox{\textwidth}{!}{
   \begin{tabular}{@{}lrrrrrr@{}}
   \toprule
   Alignments   & 50\%   & 80\%   & 83\%  & 92\%  & 92.5\% & 100\%     \\ \midrule
@@ -24,7 +25,7 @@
   \tn       & 0.568 $\pm$ 0.049 & 0.775 $\pm$ 0.084 & 0.807 $\pm$ 0.038 & 0.868 $\pm$ 0.012 & 0.877 $\pm$ 0.025 & \textbf{1.000} $\pm$ 0.000\\ 
   \mtl      & \textbf{0.998} $\pm$ 0.032 & \textbf{0.995} $\pm$ 0.000 & \textbf{0.998} $\pm$ 0.000 & \textbf{0.998} $\pm$ 0.032 & \textbf{0.995} $\pm$ 0.000 & \textbf{0.999} $\pm$ 0.016 \\ \midrule
 
-  \end{tabular}
-  \caption{Experiment results on VW with \mtl using $\lambda=0.8$.}
+  \end{tabular}}
+  \caption{Experiment results on VW double-square decision boundary . Models use 512-dimension embeddings; \mtl uses $\lambda=0.8$ and filtered triplets.}
   \label{tab:wv_square_filtered_l=0.8}
   \end{table}

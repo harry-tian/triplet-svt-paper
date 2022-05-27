@@ -1,8 +1,10 @@
 %!TEX root = ../supp_main.tex
 
-\begin{table}[h]
+\begin{table}[t]
   \small
   \centering
+    \resizebox{\textwidth}{!}{
+
   \begin{tabular}{@{}lrrrrrr@{}}
   \toprule
   Alignments   & 50\%   & 80\%   & 83\%  & 92\%  & 92.5\% & 100\%     \\ \midrule
@@ -16,14 +18,14 @@
 
   \multicolumn{7}{c}{\textbf{NINO Decision Support}}       \\ \midrule
   \resn     & 0.625 $\pm$ 0.258 & 0.783 $\pm$ 0.288 & 0.736 $\pm$ 0.286 & 0.738 $\pm$ 0.283 & 0.785 $\pm$ 0.289 & 0.803 $\pm$ 0.272 \\
-  \tn       & 0.648 $\pm$ 0.413 & 0.914 $\pm$ 0.048 & 0.900 $\pm$ 0.127 & 0.940 $\pm$ 0.032 & 0.934 $\pm$ 0.111 & 1.000 $\pm$ 0.0000\\ 
-  \mtl      & 0.720 $\pm$ 0.540 & 0.910 $\pm$ 0.159 & 0.935 $\pm$ 0.064 & 0.931 $\pm$ 0.079 & 0.939 $\pm$ 0.048 & 0.999 $\pm$ 0.016 \\ \midrule
+  \tn       & 0.648 $\pm$ 0.413 & \textbf{0.914} $\pm$ 0.048 & 0.900 $\pm$ 0.127 & \textbf{0.940} $\pm$ 0.032 & 0.934 $\pm$ 0.111 & \textbf{1.000} $\pm$ 0.0000\\ 
+  \mtl      & \textbf{0.720} $\pm$ 0.540 & 0.910 $\pm$ 0.159 & \textbf{0.935} $\pm$ 0.064 & 0.931 $\pm$ 0.079 & \textbf{0.939} $\pm$ 0.048 & 0.999 $\pm$ 0.016 \\ \midrule
 
   \multicolumn{7}{c}{\textbf{NIFO Decision Support}}       \\ \midrule
   \resn     & 0.682 $\pm$ 0.292 & 0.783 $\pm$ 0.309 & 0.783 $\pm$ 0.249 & 0.785 $\pm$ 0.254 & 0.784 $\pm$ 0.306 & 0.833 $\pm$ 0.197  \\
   \tn       & 0.531 $\pm$ 0.048 & 0.571 $\pm$ 2.875 & 0.575 $\pm$ 0.731 & 0.477 $\pm$ 0.064 & 0.425 $\pm$ 0.858 & 0.670 $\pm$ 0.381\\ 
-  \mtl      & 0.996 $\pm$ 0.016 & 0.995 $\pm$ 0.000 & 0.998 $\pm$ 0.000 & 0.998 $\pm$ 0.000 & 0.996 $\pm$ 0.016 & 0.996 $\pm$ 0.016 \\ \midrule
-  \end{tabular}
-  \caption{Experiment results on VW with \mtl using $\lambda=0.5$. All models output a 50-dimension embedding.}
+  \mtl      & \textbf{0.996} $\pm$ 0.016 & \textbf{0.995} $\pm$ 0.000 & \textbf{0.998} $\pm$ 0.000 & \textbf{0.998 }$\pm$ 0.000 & \textbf{0.996} $\pm$ 0.016 & \textbf{0.996} $\pm$ 0.016 \\ \midrule
+  \end{tabular}}
+  \caption{Experiment results on VW double-square decision boundary . Models use 50-dimension embeddings; \mtl uses $\lambda=0.5$ and filtered triplets.}
   \label{tab:wv_square_filtered_l=0.5_d=50}
   \end{table}

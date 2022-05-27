@@ -1,5 +1,5 @@
 
-\begin{table}[h!]
+\begin{table}[t]
   \small
   \centering
   \begin{tabular}{@{}lrrrr@{}}
@@ -15,14 +15,15 @@
 
   \multicolumn{5}{c}{\textbf{NINO Decision Support}}       \\ \midrule
   \resn     & 0.778 $\pm$ 0.084 & 0.792 $\pm$ 0.144 & 0.839 $\pm$ 0.130 & 0.927 $\pm$ 0.019 \\
-  \tn       & 0.712 $\pm$ 0.077 & 0.833 $\pm$ 0.051 & 0.942 $\pm$ 0.009 & 0.963 $\pm$ 0.013\\ 
-  \mtl      & 0.841 $\pm$ 0.053 & 0.911 $\pm$ 0.053 & 0.967 $\pm$ 0.009 & 0.961 $\pm$ 0.014 \\ \midrule
+  \tn       & 0.554 $\pm$ 0.175 & 0.770 $\pm$ 0.318 & 0.950 $\pm$ 0.095 & 0.914 $\pm$ 0.075\\ 
+  \mtl      & \textbf{0.841} $\pm$ 0.053 & \textbf{0.911} $\pm$ 0.053 & \textbf{0.967} $\pm$ 0.009 & \textbf{0.961} $\pm$ 0.014 \\ \midrule
 
   \multicolumn{5}{c}{\textbf{NIFO Decision Support}}       \\ \midrule
   \resn     & 0.802 $\pm$ 0.249 & 0.815 $\pm$ 0.151 & 0.848 $\pm$ 0.188 & 0.953 $\pm$ 0.051 \\
-  \tn       & 0.539 $\pm$ 0.155 & 0.460 $\pm$ 0.397 & 0.571 $\pm$ 0.205 & 0.586 $\pm$ 0.577\\ 
-  \mtl      & 0.979 $\pm$ 0.014 & 0.977 $\pm$ 0.009 & 0.977 $\pm$ 0.009 & 0.978 $\pm$ 0.013 \\ \midrule
+  \tn       & 0.473 $\pm$ 1.016 & 0.653 $\pm$ 1.747 & 0.441 $\pm$ 0.016 & 0.381 $\pm$ 0.474\\ 
+  \mtl      & \textbf{0.979} $\pm$ 0.014 & \textbf{0.977} $\pm$ 0.009 & \textbf{0.977} $\pm$ 0.009 & \textbf{0.978} $\pm$ 0.013 \\ \midrule
   \end{tabular}
-  \caption{Experiment results on VW linear decision boundary data. \mtl uses $\lambda=0.5$.}
+
+  \caption{Experiment results on VW linear decision boundary data. Models use 512-dimension embeddings; \mtl uses $\lambda=0.5$ and filtered triplets.}
   \label{tab:wv_lin_filtered_l=0.5}
   \end{table}
