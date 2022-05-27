@@ -58,121 +58,11 @@ We use a training batch size of $40$ for triplet prediction, and $30$ for classi
 \input{tables/supp/clf_triplet_acc.tex}
 \input{tables/supp/wv_square_filtered_l=0.5_ci.tex}
 
-
-We compare \mtl, \resn, \tn on classification accuracy, triplet accuracy, and decision support performance for simulated humans. 
-Table~\ref{tab:wv-square-clf-trip} shows how tuning $\lambda$ affects \mtl 's classification and triplet accuracy. Higher $\lambda$ drives \mtl to behave more simlar to \resn while lower \mtl is more similar to \tn.
-
-
-\paragraph{Experiment results on VW with confidence intervals.}
-Table~\ref{tab:table1-ci} presents results on VW with \mtl $\lambda=0.5$. This is is simply Table 1 in the main paper with 0.95 confidence intervals.
-
-
-\paragraph{Results for different $\lambda$.}
-In Table~\ref{tab:wv_square_filtered_l=0.2} and Table~\ref{tab:wv_square_filtered_l=0.8} we show experiment results with \mtl using $\lambda=0.2$ and $\lambda=0.8$. We do not observe a clear trend between $\lambda$ and evaluation metric performances. In the main paper we present \mtl with $\lambda=0.5$ as it shows best overall performance.
-
-\input{tables/supp/wv_square_filtered_l=0.2_ci.tex}
-
-\input{tables/supp/wv_square_filtered_l=0.8_ci.tex}
-
-
-\paragraph{Results for 50-dimension embedding.} Table~\ref{tab:wv_square_filtered_l=0.5_d=50} shows results with all models outputing a 50-dimension embedding. Similar to $\lambda$, the trend between embedding dimension and our evaluation metrics is not clear.
-
-\input{tables/supp/wv_square_filtered_l=0.5_d=50.tex}
-
-
-\paragraph{Results for unfiltered \mtl.} 
-In table~\ref{tab:wv_square_unfiltered_l=0.5} we show results on \mtl with $\lambda=0.5$ using unfiltered triplets. An unfiltered \mtl performs much worse in NINO decision support, as also shown by Figure 3 in the main paper.
-We also show in ~\figref{fig:filter-h2h} more clear effects of filtering on H2H performance. We conclude that filtered \mtl leads to worse H2H performance but much better decision support performance.
-
-\input{tables/supp/wv_square_unfiltered_l=0.5_ci.tex}
-
-
-\begin{table}[t]
-    \begin{minipage}[b]{\textwidth}
-      \centering
-      \begin{subfigure}[b]{0.49\textwidth}
-        \includegraphics[width=\textwidth]{figures/supp/wv_square_NI-h2h_filter.pdf}
-        \end{subfigure}
-        \begin{subfigure}[b]{0.49\textwidth}
-        \includegraphics[width=\textwidth]{figures/supp/wv_square_NO-h2h_filter.pdf}
-        \end{subfigure}
-        \captionof{figure}{H2H performance on VW,  MTL with filtered and unfiltered triplets.}
-        \label{fig:filter-h2h}
-    \end{minipage}
-  \end{table}
-  
-
-\paragraph{The effect of noise on unfiltered \mtl} As ~\figref{fig:noise-unfiltered} shows, \mtl trained on unfiltered triplets is more vulnerable to noise perturbation. H2H and decision support performance is overall worse and decreases much faster than that of filtered \mtl (Figure 4 in the main paper).
-
-\begin{table}[t]
-  \begin{minipage}[b]{\textwidth}
-    \centering
-    \begin{subfigure}[b]{0.32\textwidth}
-      \includegraphics[width=\textwidth]{figures/supp/wv_square_noise_unfiltered_h2h.pdf}
-      \end{subfigure}
-      \begin{subfigure}[b]{0.32\textwidth}
-        \includegraphics[width=\textwidth]{figures/supp/wv_square_noise_unfiltered_NINO.pdf}
-      \end{subfigure}
-      \begin{subfigure}[b]{0.32\textwidth}
-        \includegraphics[width=\textwidth]{figures/supp/wv_square_noise_unfiltered_NIFO.pdf}
-      \end{subfigure}
-      \captionof{figure}{Results on VW with varying noise levels. \mtl uses unfiltered triplets}
-      \label{fig:noise-unfiltered}
-  \end{minipage}
-\end{table}
-
-
-
-In synthetic experiments, \mtl achieves the same perfect classification accuracy as \resn (100\%), and a triplet accuracy of 0.968 which is comparable to \tn.
-This shows that \mtl indeed learns both the classification task and human similarity prediction task.
-We next present the evaluation on case-based decision support with synthetic humans, which is the key goal of this work.
-
-% We start by discussing results with our best \mtl model in different case-based decision support scenarios, and then discuss the effect of different parameter choices. 
-% We evaluate \mtl using H2H comparison with \resn as report the results of using NI and NO as justifications.
-% We also present NN decision support and NIFO decision support across different alignment settings in comparison to \resn and \tn.
-
-\para{\mtl significantly outperforms \resn in H2H.} 
-% \chenhao{replace the header with the main takeaway.}
-Our synthetic humans prefer \mtl over \resn by a large margin as justifications for both nearest in-class examples and nearest out-of-class examples, indicating the NIs and NOs selected from the \mtl representations are more aligned with the synthetic humans than \tn. % There is no clear pattern between H2H performance and alignment, suggesting that \mtl is able to learn a wide range of human similarity. 
-% Also note that 
-For NI H2H, the preference towards \mtl declines as the alignment improves, because if alignment between human similarity and classification increases, \resn can capture human similarity as a byproduct of classification.
-Also, NO H2H is higher than NI H2H, suggesting \resn learns a better representation within each class compared to between classes. 
-% \harry{I want to say something like "\resn is likely to produce embeddings with class-defined clusters, making NI easier than NO". not sure if that makes sense}.
-
-% \mtl learns a more human-compatible embedding space.
-
-
-% \cc{from important results to unimportant results}
-
-\para{\mtl provides the best decision support.} 
-% \harry{should we bold the highest numbers in tbale1?}
-Table \ref{tab:main-results} shows that \mtl achieves the highest NINO and NIFO decision support scores in all alignments. %This further emphasizes that the \mtl representation has high classificaiton ability and human similarity alignment. 
-% \harry{TODO: more discussion here.}
-In NINO decision support, \resn consistently outperforms \tn, highlighting that representation solely learned for metric learning is ineffective for decision support.
-For all models, the decision support performance improves as the alignments increases, suggesting that decision support is easier when human similarity judgement is aligned with the classification task.
-\resn and \tn are more comparable in NIFO, while \mtl consistently shows 100\%.
-The fact that \resn shows comparable performance between NINO and NIFO further confirms that \resn does not capture meaning similarity for examples from two different classes.
-
-% both \resn and \tn see decerased decision support performance in varying settings. \resn sees good NINO performance but fails at the easier NIFO task; its NINO and NIFO scores are similar, likely because \resn embeddings do not differentiate NO and FO. \tn is good at NIFO but significantly worse at NINO, suggesting that NINO may be a task that benefits from strong classification performance and high human alignment. 
-
-\para{Filtering triplets leads to better decision support}. \figref{fig:filter} shows that filtering class-inconsistent triplets improves \mtl's decision support performance across all alignments. Further details in the supplementary material show that filtering slightly hurts direct comparison performance. 
-This suggests that in terms of decision support, the benefit of filtering out human noise may overweigh the loss of some similarity judgment.
-
-% \para{Alignment matches with NINO decision support.} For all models, there is a linear trend between alignment and NINO decision support performance. 
-
-
-\input{tables/main-results.tex}
-
-\begin{table}[t]
+\begin{table}[h!]
   \begin{minipage}[b]{0.38\textwidth}
     \centering
     \includegraphics[width=\textwidth]{figures/filtered_NINO_err.pdf}
-    % \begin{subfigure}[b]{0.495\textwidth}
-    % \includegraphics[width=\textwidth]{figures/filtered_h2h.pdf}
-    % \caption{H2H with \resn}
-    % \end{subfigure}
     \captionof{figure}{NINO decision support on \mtl with filtered and unfiltered triplets. Filtered triplets leads to greatly improved performance. }
-    % \cc{legend is wrong?}}
     \label{fig:filter}
   \end{minipage}
   \hfill
@@ -180,35 +70,119 @@ This suggests that in terms of decision support, the benefit of filtering out hu
     \centering
     \begin{subfigure}[b]{0.32\textwidth}
       \includegraphics[width=\textwidth]{figures/noise_h2h_v1.pdf}
-      % \caption{NI H2H}
       \end{subfigure}
       \begin{subfigure}[b]{0.32\textwidth}
       \includegraphics[width=\textwidth]{figures/noise_NINO_v1.pdf}
-      % \caption{NINO}
       \end{subfigure}
       \begin{subfigure}[b]{0.32\textwidth}
       \includegraphics[width=\textwidth]{figures/noise_NIFO.pdf}
-      % \caption{NIFO}
       \end{subfigure}
       \captionof{figure}{Noise hurts direct comparison more than decision support.}
       \label{fig:noise}
       \begin{subfigure}[b]{0.32\textwidth}
         \includegraphics[width=\textwidth]{figures/num_h2h_v1.pdf}
-        % \caption{H2H with \resn}
         \end{subfigure}
         \begin{subfigure}[b]{0.32\textwidth}
         \includegraphics[width=\textwidth]{figures/num_NINO_v1.pdf}
-        % \caption{NINO}
         \end{subfigure}
         \begin{subfigure}[b]{0.32\textwidth}
         \includegraphics[width=\textwidth]{figures/num_NIFO_v1.pdf}
-        % \caption{NIFO}
         \end{subfigure}
         \caption{\mtl performance declines as the number of triplets decreases, but shows strong NIFO decision support accuracy even with very few triplets.}
-        % \harry{TODO: update to predicted label}}
         \label{fig:vary-num}
   \end{minipage}
 \end{table}
+
+We compare \mtl, \resn, \tn on classification accuracy, triplet accuracy, and decision support performance for simulated humans. 
+Table~\ref{tab:wv-square-clf-trip} shows how tuning $\lambda$ affects \mtl 's classification and triplet accuracy. Higher $\lambda$ drives \mtl to behave more simlar to \resn while lower \mtl is more similar to \tn. This shows that \mtl indeed learns both the classification task and human similarity prediction task.
+
+
+\paragraph{H2H and decision support results} In Table~\ref{tab:table1-ci} we present results with the best set of hyperparameter: filtered triplets, 512-dimension embedding, $\lambda=0.5$. We present our main observations as follows.
+
+
+\para{\mtl significantly outperforms \resn in H2H.} 
+Our synthetic humans prefer \mtl over \resn by a large margin as justifications for both nearest in-class examples and nearest out-of-class examples, indicating the NIs and NOs selected from the \mtl representations are more aligned with the synthetic humans than \tn. % There is no clear pattern between 
+
+For NI H2H, the preference towards \mtl declines as the alignment improves, because if alignment between human similarity and classification increases, \resn can capture human similarity as a byproduct of classification.
+Also, NO H2H is higher than NI H2H, suggesting \resn learns a better representation within each class compared to between classes. 
+
+\para{\mtl provides the best decision support.} 
+Table \ref{tab:table1-ci} shows that \mtl achieves the highest NINO and NIFO decision support scores in all alignments. %This further emphasizes that the 
+In NINO decision support, \resn consistently outperforms \tn, highlighting that representation solely learned for metric learning is ineffective for decision support.
+For all models, the decision support performance improves as the alignments increases, suggesting that decision support is easier when human similarity judgement is aligned with the classification task.
+\resn and \tn are more comparable in NIFO, while \mtl consistently shows 100\%.
+The fact that \resn shows comparable performance between NINO and NIFO further confirms that \resn does not capture meaning similarity for examples from two different classes.
+
+\para{Filtering triplets leads to better decision support}. \figref{fig:filter} shows that filtering class-inconsistent triplets improves \mtl's decision support performance across all alignments. 
+% Further details in the supplementary material show that filtering slightly hurts direct comparison performance. 
+This suggests that in terms of decision support, the benefit of filtering out human noise may overweigh the loss of some similarity judgment.
+
+
+
+
+
+% We show results for $\lambda=0.2$ in Table 13 and $\lambda=0.8$ in Table 14. We also show results with 50-dimension \mtl in Table 15 and unfiltered \mtl in Table 16. 
+
+
+% \paragraph{Results for different $\lambda$.}
+% In Table~\ref{tab:wv_square_filtered_l=0.2} and Table~\ref{tab:wv_square_filtered_l=0.8} we show experiment results with \mtl using $\lambda=0.2$ and $\lambda=0.8$. We do not observe a clear trend between $\lambda$ and evaluation metric performances. In the main paper we present \mtl with $\lambda=0.5$ as it shows best overall performance.
+
+% \input{tables/supp/wv_square_filtered_l=0.2_ci.tex}
+
+% \input{tables/supp/wv_square_filtered_l=0.8_ci.tex}
+
+
+% \paragraph{Results for 50-dimension embedding.} Table~\ref{tab:wv_square_filtered_l=0.5_d=50} shows results with all models outputing a 50-dimension embedding. Similar to $\lambda$, the trend between embedding dimension and our evaluation metrics is not clear.
+
+% \input{tables/supp/wv_square_filtered_l=0.5_d=50.tex}
+
+
+% \paragraph{Results for unfiltered \mtl.} 
+% In table~\ref{tab:wv_square_unfiltered_l=0.5} we show results on \mtl with $\lambda=0.5$ using unfiltered triplets. An unfiltered \mtl performs much worse in NINO decision support, as also shown by Figure 3 in the main paper.
+% We also show in ~\figref{fig:filter-h2h} more clear effects of filtering on H2H performance. We conclude that filtered \mtl leads to worse H2H performance but much better decision support performance.
+
+% \input{tables/supp/wv_square_unfiltered_l=0.5_ci.tex}
+
+
+% \begin{table}[t]
+%     \begin{minipage}[b]{\textwidth}
+%       \centering
+%       \begin{subfigure}[b]{0.49\textwidth}
+%         \includegraphics[width=\textwidth]{figures/supp/wv_square_NI-h2h_filter.pdf}
+%         \end{subfigure}
+%         \begin{subfigure}[b]{0.49\textwidth}
+%         \includegraphics[width=\textwidth]{figures/supp/wv_square_NO-h2h_filter.pdf}
+%         \end{subfigure}
+%         \captionof{figure}{H2H performance on VW,  MTL with filtered and unfiltered triplets.}
+%         \label{fig:filter-h2h}
+%     \end{minipage}
+%   \end{table}
+  
+
+% \paragraph{The effect of noise on unfiltered \mtl} As ~\figref{fig:noise-unfiltered} shows, \mtl trained on unfiltered triplets is more vulnerable to noise perturbation. H2H and decision support performance is overall worse and decreases much faster than that of filtered \mtl (Figure 4 in the main paper).
+
+% \begin{table}[t]
+%   \begin{minipage}[b]{\textwidth}
+%     \centering
+%     \begin{subfigure}[b]{0.32\textwidth}
+%       \includegraphics[width=\textwidth]{figures/supp/wv_square_noise_unfiltered_h2h.pdf}
+%       \end{subfigure}
+%       \begin{subfigure}[b]{0.32\textwidth}
+%         \includegraphics[width=\textwidth]{figures/supp/wv_square_noise_unfiltered_NINO.pdf}
+%       \end{subfigure}
+%       \begin{subfigure}[b]{0.32\textwidth}
+%         \includegraphics[width=\textwidth]{figures/supp/wv_square_noise_unfiltered_NIFO.pdf}
+%       \end{subfigure}
+%       \captionof{figure}{Results on VW with varying noise levels. \mtl uses unfiltered triplets}
+%       \label{fig:noise-unfiltered}
+%   \end{minipage}
+% \end{table}
+
+
+
+
+% \input{tables/main-results.tex}
+
 
 
 \para{The effect of noise in triplets.}
@@ -218,62 +192,9 @@ As shown in \figref{fig:noise}, direct comparison results decreases linearly as 
 This is not as surprising for two reasons. First, since VW is a binary dataset, half of the triplets are ones where $x^+, x^-$ belong to the same class; 
 flipping these triplets does not have a significant effect on the generated embeddings. 
 More importantly, filtering greatly reduces the adversarial effect of adding noise, highlighting the importance of filtering. 
-In comparison, \tn drops linearly in NINO, so do \mtl with unfiltered triplets (see supplementary materials).
+In comparison, \tn drops linearly in NINO, so do \mtl with unfiltered triplets.
+% (see supplementary materials).
 
-% \begin{figure}[ht]
-%   \centering
-%   \begin{subfigure}[b]{0.329\textwidth}
-%   \includegraphics[width=\textwidth]{figures/noise_h2h.pdf}
-%   \caption{NI H2H with \resn}
-%   \end{subfigure}
-%   \begin{subfigure}[b]{0.329\textwidth}
-%   \includegraphics[width=\textwidth]{figures/noise_NINO.pdf}
-%   \caption{NINO decision support}
-%   \end{subfigure}
-%   \begin{subfigure}[b]{0.329\textwidth}
-%   \includegraphics[width=\textwidth]{figures/noise_NIFO.pdf}
-%   \caption{NIFO decision support}
-%   \end{subfigure}
-%   \caption{Results on adding noise to triplets. Noise hurts direct comparison more than decision support. \harry{TODO: update to predicted label}}
-%   \label{fig:noise}
-% \end{figure}
-
-
-% \begin{figure}[ht]
-%   \centering
-%   \begin{subfigure}[b]{0.329\textwidth}
-%   \includegraphics[width=\textwidth]{figures/noise_h2h_unfiltered.pdf}
-%   \caption{NI H2H with \resn}
-%   \end{subfigure}
-%   \begin{subfigure}[b]{0.329\textwidth}
-%   \includegraphics[width=\textwidth]{figures/noise_NINO_unfiltered.pdf}
-%   \caption{NINO decision support}
-%   \end{subfigure}
-%   \begin{subfigure}[b]{0.329\textwidth}
-%   \includegraphics[width=\textwidth]{figures/noise_NIFO_unfiltered.pdf}
-%   \caption{NIFO decision support}
-%   \end{subfigure}
-%   \caption{Results on adding noise to unfiltered triplets. The impact of noise is much more prominent when using unfiltered triples.}
-%   \label{fig:noise_unfiltered}
-% \end{figure}
-
-% \begin{figure}[ht]
-%   \centering
-%   \begin{subfigure}[b]{0.329\textwidth}
-%   \includegraphics[width=\textwidth]{figures/num_h2h.pdf}
-%   \caption{H2H with \resn}
-%   \end{subfigure}
-%   \begin{subfigure}[b]{0.329\textwidth}
-%   \includegraphics[width=\textwidth]{figures/num_NINO.pdf}
-%   \caption{NINO}
-%   \end{subfigure}
-%   \begin{subfigure}[b]{0.329\textwidth}
-%   \includegraphics[width=\textwidth]{figures/num_NIFO.pdf}
-%   \caption{NIFO}
-%   \end{subfigure}
-%   \caption{Results on decreasing the number of triplets. \mtl shows decent performance with very few triplets.\harry{TODO: update to predicted label}}
-%   \label{fig:vary-num}
-% \end{figure}
 
 \para{Number of triplets} We examine the effect of the number of triplets. We decrease number of triplets by powers of 2 
 and find that H2H preference towards \mtl indeed declines as \mtl representation is less human-compatible with fewer training data.
@@ -281,9 +202,7 @@ As for decision support, in NINO, \mtl declines and eventually approaches \resn 
 
 
 
-
-
-\subsection{Additional decision boundaries}
+\subsection{Linear decision boundaries}
 
 We create a linear decision boundary on VW without altering the dataset (\figref{fig:linear-dist}). We find the results are overall similar to the original VW data.
  
@@ -296,20 +215,16 @@ We create a linear decision boundary on VW without altering the dataset (\figref
   \end{subfigure}
 \end{table}
 
-% \hfill
-% \begin{minipage}[b]{0.63\textwidth}
-%   \input{tables/supp/wv_squarelin_clf_triplet_acc.tex}
-% \end{minipage}
+\input{tables/supp/wv_squarelin_filtered_l=0.5_ci.tex}
+
 % \paragraph{Classification and triplet accuracy.} Table~\ref{tab:lin-clf} shows classification and
 % triplet accuracy of tuning $\lambda$, showing a similar trend to the previous experiment.
+\paragraph{H2H and decision support results}
 
-% \paragraph{H2H and decision support results}
+In Table~\ref{tab:wv_lin_filtered_l=0.5} we present results with the best set of hyperparameter: filtered triplets, 512-dimension embedding, $\lambda=0.5$. We show results for $\lambda=0.2$ in Table 13 and $\lambda=0.8$ in Table 14. We also show results with 50-dimension \mtl in Table 15 and unfiltered \mtl in Table 16. 
 
-% In Table~\ref{tab:wv_lin_filtered_l=0.5} we present results with the best set of hyperparameter: filtered triplets, 512-dimension embedding, $\lambda=0.5$. We show results for $\lambda=0.2$ in Table 13 and $\lambda=0.8$ in Table 14. We also show results with 50-dimension \mtl in Table 15 and unfiltered \mtl in Table 16. 
+Similar to the experiment on VW double-square decision boundary experiments, we see no clear relation between $\lambda$, embedding dimension and our evaluation metrics. Table 16 again shows that filtered \mtl leads to better decision support but worse H2H.
 
-% Similar to the experiment on VW square decision boundary, we see no clear relation between $\lambda$, embedding dimension and our evaluation metrics. Table 16 again shows that filtered \mtl leads to better decision support but worse H2H.
-
-% \input{tables/supp/wv_squarelin_filtered_l=0.5_ci.tex}
 
 % \input{tables/supp/wv_squarelin_filtered_l=0.2_ci.tex}
 
@@ -374,3 +289,10 @@ We create a linear decision boundary on VW without altering the dataset (\figref
 %       \label{fig:lin-num}
 %   \end{minipage}
 % \end{table}
+
+
+
+% \hfill
+% \begin{minipage}[b]{0.63\textwidth}
+%   \input{tables/supp/wv_squarelin_clf_triplet_acc.tex}
+% \end{minipage}
