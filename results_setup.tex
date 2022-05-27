@@ -60,11 +60,11 @@ We can evaluate these representations with classification and triplet accuracy u
 our main evaluation is designed to simulate case-based decision support scenarios.
 
 \begin{itemize}[itemsep=0pt, topsep=0pt, leftmargin=*]
-  \item Justification (``\textbf{H2H}''). 
+  % \item Justification (``\textbf{H2H}''). 
   % One possible strategy to examine the quality of representations is to ask people to subjectively rate similarity between the test image and the justification. However, self-reported ratings are known to be problematic. \chenhao{add cite} 
-  To derive objective judgment of the quality of justification, we setup head-to-head comparisons between two justifications derived from two representations and examine which justification (synthetic) human considers more similar.
-  In addition to the typical justification for the predicted label, we also examine that for the other class as those examples will be used in decision support.
-  We refer to the nearest example with the predicted label as {\em NI}, and nearest example in the other class as {\em NO}.
+  % To derive objective judgment of the quality of justification, we setup head-to-head comparisons between two justifications derived from two representations and examine which justification (synthetic) human considers more similar.
+  % In addition to the typical justification for the predicted label, we also examine that for the other class as those examples will be used in decision support.
+  % We refer to the nearest example with the predicted label as {\em NI}, and nearest example in the other class as {\em NO}.
 
   \item Decision support (``\textbf{NINO}''). Following \secref{sec:formulation}, we retrieve the nearest neighbors from each class. We use the accuracy of (synthetic) human as the measure of effective decision support while preserving human agency.
 
