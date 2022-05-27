@@ -5,7 +5,6 @@
 % Recommended, but optional, packages for figures and better typesetting:
 \usepackage{microtype}
 \usepackage{graphicx}
-% \usepackage{subfigure}
 \usepackage{booktabs} % for professional tables
 
 % hyperref makes hyperlinks in the resulting PDF.
@@ -126,12 +125,12 @@
 %%%%%%%%%%%%%%%%%%%%%%% Comments %%%%%%%%%%%%%%%%%%%%%%%
 \newif\ifcomments
 
-\commentstrue
+\commentsfalse
 
 \ifcomments
     \newcommand\chenhao[1]{\textcolor{magenta}{[CT: #1]}}
     \newcommand\shi[1]{\textcolor{brown}{[Shi: #1]}}
-    \newcommand\harry[1]{\textcolor{gray}{[HT: #1]}}
+    \newcommand\harry[1]{\textcolor{purple}{[HT: #1]}}
     \newcommand\han[1]{\textcolor{violet}{[Han: #1]}}
     \newcommand\cc[1]{\textcolor{blue}{[Chacha: #1]}}
     \newcommand\yuxin[1]{\textcolor{red}{[Yuxin: #1]}}

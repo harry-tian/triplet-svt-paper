@@ -32,7 +32,8 @@ The focus of this work is thus on the effectiveness of $g$ for case-based decisi
 % We refer to the embedding model $g$ (or \textit{model} for short) and the example selection policy $\pi$ (or \textit{policy} for short) collectively as the decision support system (or \textit{the system} for short).
 
 Given a classification model $h$, the representation in justification and decision support is a byproduct derived from $h$, which is the last layer before the classification head.
-We refer to this model as $e(h)$.\footnote{In general, we can use the representation in any layer, but in preliminary experiments, we find representation from the last layer is most effective.}
+We refer to this model as $e(h)$.
+% \footnote{In general, we can use the representation in any layer, but in preliminary experiments, we find representation from the last layer is most effective.}
 In justification, the example policy is $NN(x, e(h), D^\text{train}_{\hat{y}})$, where $D^\text{train}_{\hat{y}}$ refers to the subset of training data with label $\hat{y}$ and $NN$ finds the nearest neighbor of $x$ using representations from $e(h)$ among the subset of examples with label $\hat{y}$.
 In decision support, the example policy is $\{NN(x, e(h), D^\text{train}_{y}), ~\forall y \in \outputspace \}$.
 
