@@ -1,0 +1,14 @@
+{
+	"folders": [
+		{
+			"path": "."
+		},
+		{
+			"path": "../2022_neurips_triplet"
+		},
+		{
+			"path": "../matrix-completion"
+		}
+	],
+	"settings": {}
+}

@@ -1,13 +1,25 @@
 %!TEX root = main.tex 
-% \section{Experiments}
-% \label{sec:experiment}
+\section{Results}
 
-% \shi{need better lead-in paragraph}
-% We validate the effectiveness of \mtl with both synthetic experiments and human subject studies.
+\input{tables/main-results.tex}
 
-\input{results_setup}
+\begin{figure}[t]
+    \center 
+    \begin{subfigure}[b]{0.31\textwidth}
+        \includegraphics[width=\textwidth]{figures/ID1.pdf}
+    \end{subfigure}
+    \begin{subfigure}[b]{0.31\textwidth}
+        \includegraphics[width=\textwidth]{figures/IDR.pdf}
+    \end{subfigure}
+    \begin{subfigure}[b]{0.31\textwidth}
+        \includegraphics[width=\textwidth]{figures/INC.pdf}
+    \end{subfigure}
+    \caption{Test triplet accuracies of distance matrices by varying number of triplets. All methods beat the baseline method even with few number of triplets.}
+    \label{fig:main-results}
+\end{figure}
 
-% \input{results_syn}
 
+Our baseline is simply test triplet accuracy using the distance matrix $D$ without matrix completion. We present our main results in Table 1. With SVT matrix completion, all our matrix construction methods outperform the baseline. 
 
-\input{results_human}
+We also present results on decreasing the number of triplets in ~\figref{fig:main-results} and show that our matrix constructed methods with SVT is robust to varying number of triplets.
+

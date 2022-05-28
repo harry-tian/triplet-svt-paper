@@ -1,0 +1,12 @@
+%!TEX root = main.tex
+
+\section{Formulation}
+
+Triplet annotation is a common form of encoding human similarity judgments. Given a set of human annotated triplets $T:=\{(i,j,k): dist(i,j)<dist(j,k)\}$, where $1\leq i\neq j\neq k\leq n$ and $dist$ is the human perceptual distance, we aim to either find an embedding $\textbf{X}=[\textbf{x}_1,...,\textbf{x}_n]\in\mathbb{R}^{n\times d}$ (the ordinal embedding problem) or a symmetric distance matrix $D\in\mathbb{R}^{n\times n}$ that satisfy the triplet constraints. 
+In this work we focus on the latter.
+
+Collecting all possible similarity judgements is infeasible and unscalable in cost. Thus we can form a matrix completion problem with the collected triplet annotations as the observed entries of a distance matrix.
+
+Triplet annotations does not directly convey a continuous distance metric, but instead contains ordinal information about the data. This gives us freedom in constructing our distance matrix. We experiment with different matrix construction methods, but in general they are constructed with the following steps: (1) initialize a distance matrix $D\in\mathbb{R}^{n\times n}$ with all zeros; (2) for a triplet $t:=(i,j,k)\in T$, increment $D_{i,j}$, $D_{j,i}$ by some value and decrement $D_{i,k}$, $D_{k,i}$ by some value. 
+
+We then implement the singular value thresholding algorithm (SVT) \citep{2008svt} as our matrix completion method. We use bayesian optimization to search for the best set of hyperparameters: $\tau$, the singular value thresholding amount, and $\epsilon$, the convergence condition. We then evaluate the distance matrix produced by SVT on a test set of triplets.

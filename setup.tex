@@ -1,0 +1,28 @@
+%!TEX root = main.tex 
+
+\section{Experimental Setup}
+
+\paragraph{Triplet annotations}
+
+We collect triplet annotations on a natural image dataset: Butterflies v.s. Moths (BM). Following \citet{singla2014near}, we acquired 120 images from the publicly available dataset set (ImageNet \cite{krizhevsky2012imagenet}). BM is a binary classification problem and each class contains two species.
+
+We recruit 80 crowdworkers on Prolific to acquire 2400 visual similarity triplets. In each question for the annotator, we show the reference image on top and two candidate below, and ask 2-Alternative-Forced-Choice (2AFC) question: which candidate image looks more similar to the reference image. 
+
+\paragraph{Distance matrix construction}
+We experiment with the following three distance matrix construction methods. The distance matrix $D\in\mathbb{R}^{n\times n}$ is always initialized with all zeros.
+
+\begin{itemize}[itemsep=0pt, topsep=0pt, leftmargin=*]
+    \item Increment/decrement by 1 (\textbf{ID1}). For all triplets $t:=(i,j,k)\in T$, increment $D_{i,j}$, $D_{j,i}$ and decrement $D_{i,k}$, $D_{k,i}$ by 1. Then, fill the diagonals of $D$ with $2\cdot min(D)$.
+    
+    \item Increment/decrement by random (\textbf{IDR}). For all triplets $t:=(i,j,k)\in T$, increment $D_{i,j}$, $D_{j,i}$ and decrement $D_{i,k}$, $D_{k,i}$ by a random value in (0,1). Then, fill the diagonals of $D$ with $2\cdot min(D)$.
+    
+    \item always increment  (\textbf{INC}). For all triplets $t:=(i,j,k)\in T$, increment $D_{i,j}$, $D_{j,i}$ by 1 and increment $D_{i,k}$, $D_{k,i}$ by 2. Then, fill the diagonals of $D$ with 0.
+    
+\end{itemize}
+
+\paragraph{Singular Value Thresholding} We use the constructed distance matrix $D$ along with a mask $M$ as the input to SVT. $M\in\mathbb{R}^{n\times n}$ has 1s in indices filled by the distance matrix construction and 0s elsewhere. For each $D$ and  $M$, we find the best hyperparameters for SVT through bayesian optimization on $\tau$, the singular value thresholding amount, and $\epsilon$, the convergence condition.
+
+\paragraph{Evaluations} 
+We randomly split the triplets into a training set and a test set with a 0.8:0.2 ratio. We evaluate a distance matrix by triplet accuracy: the percentage of triplets in the test set that the distance matrix agrees with.
+
+We also experiment our methods robustness to varying number of triplets. We decrease the number of triplets by 10\% to create 10 settings and measure the test triplet accuracy in each setting.
